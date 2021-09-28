@@ -218,7 +218,7 @@ public class TestJacksonUnitTest {
     			+   "\"mau\":"
     			+ 		"{\"id\":\"1\"}"	
     			+ 	"}";*/
-    	String json="{\"id\":\"iphonecCX\",\"manHinh\":\"amoledSupper\",\"name\":\"iphone 19\",\"sim\":\"khong co sim\",\"loai\":{\"id\":\"ip\"},\"chiTietSanPhams\":[{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}},{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}}]}";
+    	String json="{\"id\":\"iphonecC4X\",\"manHinh\":\"amoledSupper\",\"name\":\"iphone 19\",\"sim\":\"khong co sim\",\"loai\":{\"id\":\"ip\"},\"chiTietSanPhams\":[{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}},{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}}]}";
     			
     	ObjectMapper objectMapper=new ObjectMapper();
     	

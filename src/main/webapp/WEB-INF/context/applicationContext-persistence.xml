@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     <!-- Activates scanning of @Repository and @Service and @Component -->
       <context:property-placeholder location="hibernate-config.properties"/>
-     <context:component-scan base-package="com.mycompany.springmvchibernate,com.mycompany.springmvchibernate.EntityTest.*,com.mycompany.springmvchibernate.Controller,
+     <context:component-scan base-package="com.mycompany.springmvchibernate,com.mycompany.springmvchibernate.Entity.*,com.mycompany.springmvchibernate.Controller,
      com.mycompany.springmvchibernate.Controller.*,com.mycompany.springmvchibernate.Service, com.mycompany.springmvchibernate.API,com.mycompany.springmvchibernate.Config" />
       
     <annotation-driven/>
@@ -29,7 +29,7 @@
     <!-- Configure the entity manager factory bean -->
     <beans:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
-        <beans:property name="packagesToScan" value="com.mycompany.springmvchibernate.EntityTest" />
+        <beans:property name="packagesToScan" value="com.mycompany.springmvchibernate.Entity" />
         <beans:property name="jpaVendorAdapter">    
             <!-- Create default configuration for Hibernate -->
             <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">    
