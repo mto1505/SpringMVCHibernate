@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:sec="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+			 http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			 http://www.springframework.org/schema/security
+			 http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+    
+    <beans:import  resource="dispatcher-servlet.xml"    />
+  	 
+    <!--  Authentication Layer -->
+       <!-- Stateless RESTful service using Basic authentication -->
+		<!--   <http pattern="/restful/**" create-session="stateless">
+		    <intercept-url pattern='/**' access='ROLE_REMOTE' />
+		    <http-basic />
+		  </http> -->
+    <!-- Authenticatin Filter -->
+    <!-- filterChainProxy được khởi tạo khi <http>  được thêm vào-->
+    <!-- filterChainProxy chứa danh sách thứ tự SecurityFilter cái mà  được định nghĩa trong Spring application context-->
+    
+    <!--http tự động kích hoạt 3 filter: SecurityContextPersistenceFilter, an ExceptionTranslationFilter and a FilterSecurityInterceptor.-->
+    <!-- HttpSecurityBeanDefinitionParser from Spring framework reads this <http> -->
+  	<!-- auto-config ==true kích hoạt 3 filter  UsernamePasswordAuthenticationFiler, BacsicAuthenticationFiler,LogoutFilter-->
+    
+   
+    <!-- <sec:http pattern="/login" security="none" ></sec:http> -->
+    <!-- OR  <intercept-url  pattern = "/login.html"  access = "IS_AUTHENTICATE_ANONYUMOUSLY" />  -->
+   	
+    <sec:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
+      <sec:intercept-url pattern="/quan-tri/trang-chu" access="hasAuthority('ADMIN')" />
+    <!-- 	<sec:intercept-url pattern="/quan-tri/trang-chu" access="hasRole('ROLE_ADMIN')" /> -->
+    	<!-- <sec:intercept-url pattern="/quan-tri/*" access="ROLE_ADMIN"/> -->
+        <sec:access-denied-handler error-page="/accessDenied"/>
+        <sec:form-login login-page="/dang-nhap"
+                     username-parameter="j_username"
+                     password-parameter="j_password"
+                     login-processing-url="/j_spring_security_check" 
+                     authentication-success-handler-ref="customSuccessHandler"
+                     authentication-failure-url="/dang-nhap?incorrectAccount"/>
+                    <!--  https://localhost:8181/SpringMVCTest/ -->
+                    
+         <!-- Session -->           
+        <sec:session-management session-authentication-error-url="/dang-nhap?sessionTimeout"  
+                                    session-fixation-protection="newSession">   
+	        <sec:concurrency-control error-if-maximum-exceeded="false" expired-url="/dang-nhap?message=max_session"
+	                                 max-sessions="1" />
+      	</sec:session-management>
+      	<!-- LOGOUT -->
+        <sec:logout delete-cookies="JSESSIONID"/>
+        
+        <!-- enable remember me -->
+        <!--data-source-ref="dataSource" -->
+        <sec:remember-me 
+        services-alias="rememberMeAuthenticationProvider"
+        remember-me-cookie="my-remember-me"
+     	
+       	/> 
+		        <!-- this bean have in dispatcher-servlet.xml -->	
+		        <!-- 14 NGÀY -->
+    </sec:http>
+      
+    <!-- Authentication Manager-->  
+    <sec:authentication-manager id="authenticationManager"> <!-- ProviderMananger implements Authentication Manager-->
+        <!-- DaoAuthenticationProvider default of http form-login--> 
+        <!--  user-service-ref="customUserDetailService" -->
+        <sec:authentication-provider user-service-ref="customUserDetailService">  <!-- Custom Security Filter-->
+         <!--    <sec:user-service >
+                <sec:user name="user" password="12345" authorities="ROLE_USER,ROLE_READ,ROLE_WRITE" />
+                <sec:user name="admin" password="12345" authorities="ROLE_USER, ROLE_ADMIN" />
+            </sec:user-service> -->
+         
+        <!--     <sec:password-encoder ref="bcryptEncoder"/> -->
+        
+        </sec:authentication-provider>
+      
+    </sec:authentication-manager>
+    <!-- REMEMBER ME -->
+  
+
+		
+		<!-- Persistent Remember Me Service -->
+	<beans:bean id="rememberMeAuthenticationProvider" class=
+	  "org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+	    <beans:constructor-arg value="myAppKey" />
+	    <beans:constructor-arg ref="jdbcTokenRepository" />
+	    <beans:constructor-arg ref="customUserDetailService" />
+	</beans:bean>
+ 
+<!-- Uses a database table to maintain a set of persistent login data -->
+	<beans:bean id="jdbcTokenRepository" 
+	  class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl"> 
+	    <beans:property name="createTableOnStartup" value="false" /> 
+	    <beans:property name="dataSource" ref="dataSource" /> 
+	</beans:bean>
+
+
+   <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <beans:property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <beans:property name="url" value="jdbc:sqlserver://localhost\\SQLMINHTO:1433;databaseName=QuanLyBaoDuongDemo" />
+        <beans:property name="username" value="minhto" />
+        <beans:property name="password" value="minhto123"/>
+        
+    </beans:bean >
+    
+    
+
+     <beans:bean id="customUserDetailService" class="com.mycompany.springmvchibernate.Config.CustomUserDetailService"></beans:bean>  
+    
+    <beans:bean id="customSuccessHandler" class="com.mycompany.springmvchibernate.Config.CustomSuccessHandler"></beans:bean>
+    <beans:bean  id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+
+</beans:beans>

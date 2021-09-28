@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.password">minhto123</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost\\SQLMINHTO:1433;databaseName=APSHOP</property>
+        <property name="hibernate.connection.username">minhto</property>
+        <property name="hibernate.default_schema">dbo</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.search.autoregister_listeners">true</property>
+        <property name="hibernate.validator.apply_to_ddl">false</property>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.HinhAnhSp"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.BoNho"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.DonViVanChuyen"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.Mau"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.VaiTro"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.DanhGia"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.KhachHang"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.Ram"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.ChiTietSanPham"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.Loai"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.TaiKhoan"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.Chip"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.DonDatHang"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.ChiTietDonDatHang"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.GioHang"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.ChiTietGioHang"/>
+        <mapping class="com.mycompany.springmvchibernate.entityfinal.SanPham"/>
+    </session-factory>
+</hibernate-configuration>
