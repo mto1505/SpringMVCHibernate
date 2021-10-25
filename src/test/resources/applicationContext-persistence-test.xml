@@ -66,8 +66,5 @@
         <beans:property name="entityManagerFactory" ref="entityManagerFactory" />
     </beans:bean>
   
-
-      
-           
    
 </beans:beans>

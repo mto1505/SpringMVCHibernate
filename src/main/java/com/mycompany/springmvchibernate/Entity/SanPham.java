@@ -3,77 +3,80 @@ package com.mycompany.springmvchibernate.Entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * The persistent class for the SAN_PHAM database table.
  * 
  */
 @Entity
-@Table(name="SAN_PHAM")
-@NamedQuery(name="SanPham.findAll", query="SELECT s FROM SanPham s")
+@Table(name = "SAN_PHAM")
+@NamedQuery(name = "SanPham.findAll", query = "SELECT s FROM SanPham s")
 public class SanPham implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID",length=50)
-	private String id;
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-	@Column(name="CameraSau",length=100)
+	@Column(name = "CameraSau", length = 100)
 	private String cameraSau;
 
-	
-	@Column(name="CameraTruoc",length=100)
+	@Column(name = "CameraTruoc", length = 100)
 	private String cameraTruoc;
 
-	
-	@Column(name="ManHinh",length=100)
+	@Column(name = "ManHinh", length = 100)
 	private String manHinh;
 
-	
-	@Column(name="MoTa",length=100)
+	@Column(name = "MoTa", length = 100)
 	private String moTa;
 
-	@Column(name="Ten",length=50)
+	@Column(name = "Ten", length = 50)
 	private String ten;
 
-	
-	@Column(name="PinSac")
+	@Column(name = "PinSac")
 	private String pinSac;
-	
-	@Basic(optional=false) //@NotNull is both understand by hibernate and can be used by other layer on application
+
+	@Basic(optional = false) // @NotNull is both understand by hibernate and can be used by other layer on
+								// application
 	@Lob
-	@Column(name="Sim")
+	@Column(name = "Sim")
 	private String sim;
 
-	//bi-directional many-to-one association to ChiTietSanPham
-	@OneToMany(mappedBy="sanPham")
-	private List<ChiTietSanPham> chiTietSanPhams=new ArrayList<>();
-	
-	//bi-directional many-to-one association to DanhGia
-	@OneToMany(mappedBy="sanPham",cascade=CascadeType.PERSIST)
-	private List<DanhGia> danhGias=new ArrayList<>();
+	// bi-directional many-to-one association to ChiTietSanPham
 
-	//bi-directional many-to-one association to Hinh_Anh_SP
-	
-	@OneToMany(mappedBy="sanPham",fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
-	private List<HinhAnhSP> hinhAnhSps=new ArrayList<HinhAnhSP>();
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	private List<ChiTietSanPham> chiTietSanPhams = new ArrayList<>();
 
-	//bi-directional many-to-one association to Loai
+	// bi-directional many-to-one association to DanhGia
+
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	private List<DanhGia> danhGias = new ArrayList<>();
+
+	// bi-directional many-to-one association to Hinh_Anh_SP
+
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	private List<HinhAnhSP> hinhAnhSps = new ArrayList<HinhAnhSP>();
+
+	// bi-directional many-to-one association to Loai
 	@ManyToOne
-	@JoinColumn(name="ID_L",nullable=false,referencedColumnName="id")
+	@JoinColumn(name = "ID_L", nullable = false, referencedColumnName = "id")
 	private Loai loai;
 
 	public SanPham() {
 	}
 
-	public String getId() {
-		return this.id;
+	public int getId() {
+		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -109,7 +112,6 @@ public class SanPham implements Serializable {
 		this.moTa = moTa;
 	}
 
-	
 	public String getTen() {
 		return ten;
 	}
@@ -183,7 +185,7 @@ public class SanPham implements Serializable {
 	}
 
 	public void setHinhAnhSps(List<HinhAnhSP> hinhAnhSps) {
-		this.hinhAnhSps=hinhAnhSps;
+		this.hinhAnhSps = hinhAnhSps;
 	}
 
 	public Loai getLoai() {
@@ -193,22 +195,19 @@ public class SanPham implements Serializable {
 	public void setLoai(Loai loai) {
 		this.loai = loai;
 	}
-	
-	public HinhAnhSP addHinhAnh(HinhAnhSP hinhAnhSP)
-	{
+
+	public HinhAnhSP addHinhAnh(HinhAnhSP hinhAnhSP) {
 		getHinhAnhSps().add(hinhAnhSP);
 		hinhAnhSP.setSanPham(this);
 		return hinhAnhSP;
-		
-		
+
 	}
-	public HinhAnhSP removeHinhAnh(HinhAnhSP hinhAnhSP)
-	{
-			getHinhAnhSps().remove(hinhAnhSP);
-			hinhAnhSP.setSanPham(null);
-			return hinhAnhSP;
-		
+
+	public HinhAnhSP removeHinhAnh(HinhAnhSP hinhAnhSP) {
+		getHinhAnhSps().remove(hinhAnhSP);
+		hinhAnhSP.setSanPham(null);
+		return hinhAnhSP;
+
 	}
-	
-	
+
 }

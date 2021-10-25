@@ -19,30 +19,29 @@ import com.mycompany.springmvchibernate.Entity.SanPham;
 
 public class ChiTietSanPhamDTO {
 
-	private String id;
+	private int id;
 
 	private BigDecimal donGia;
 
 	private int soLuong;
 
-	private BoNhoDTO boNho;
+	private BoNho boNho;
 
-	private ChipDTO chip;
+	private Chip chip;
 
-	private MauDTO mau;
+	private Mau mau;
 
-	private RamDTO ram;
+	private Ram ram;
 
 	private SanPhamDTO sanPham;
 
-	
 	public ChiTietSanPhamDTO() {
-		super();
+
 	}
 
-	public ChiTietSanPhamDTO(String id, BigDecimal donGia, int soLuong, BoNhoDTO boNho, ChipDTO chip, MauDTO mau,
-			RamDTO ram, SanPhamDTO sanPham) {
-		super();
+	public ChiTietSanPhamDTO(int id, BigDecimal donGia, int soLuong, BoNho boNho, Chip chip, Mau mau, Ram ram,
+			SanPhamDTO sanPham) {
+
 		this.id = id;
 		this.donGia = donGia;
 		this.soLuong = soLuong;
@@ -61,11 +60,11 @@ public class ChiTietSanPhamDTO {
 		this.sanPham = sanPham;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -85,47 +84,35 @@ public class ChiTietSanPhamDTO {
 		this.soLuong = soLuong;
 	}
 
-	public BoNhoDTO getBoNho() {
+	public BoNho getBoNho() {
 		return boNho;
 	}
 
-	public void setBoNho(BoNhoDTO boNho) {
+	public void setBoNho(BoNho boNho) {
 		this.boNho = boNho;
 	}
 
-	public ChipDTO getChip() {
+	public Chip getChip() {
 		return chip;
 	}
 
-	public void setChip(ChipDTO chip) {
+	public void setChip(Chip chip) {
 		this.chip = chip;
 	}
 
-	public MauDTO getMau() {
+	public Mau getMau() {
 		return mau;
 	}
 
-	public void setMau(MauDTO mau) {
+	public void setMau(Mau mau) {
 		this.mau = mau;
 	}
 
-	public RamDTO getRam() {
+	public Ram getRam() {
 		return ram;
 	}
 
-	public void setRam(RamDTO ram) {
-		this.ram = ram;
-	}
-
-	public ChiTietSanPhamDTO(String id, BigDecimal donGia, int soLuong, BoNhoDTO boNho, ChipDTO chip, MauDTO mau,
-			RamDTO ram) {
-		super();
-		this.id = id;
-		this.donGia = donGia;
-		this.soLuong = soLuong;
-		this.boNho = boNho;
-		this.chip = chip;
-		this.mau = mau;
+	public void setRam(Ram ram) {
 		this.ram = ram;
 	}
 

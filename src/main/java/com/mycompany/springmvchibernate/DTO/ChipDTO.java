@@ -7,7 +7,7 @@ public class ChipDTO {
 	
 	private String id;
 
-	private String name;
+	private String ten;
 
 	public String getId() {
 		return id;
@@ -17,12 +17,14 @@ public class ChipDTO {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	
+
+	public String getTen() {
+		return ten;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
 
 	public ChipDTO() {
@@ -32,7 +34,7 @@ public class ChipDTO {
 	public ChipDTO(String id, String name) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.ten = name;
 	}
 	
 }

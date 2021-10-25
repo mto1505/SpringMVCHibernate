@@ -18,7 +18,7 @@ public class DonDatHang implements Serializable {
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	@Column(name="ThoiGian")
@@ -42,9 +42,10 @@ public class DonDatHang implements Serializable {
 	private List<ChiTietSanPham> chiTietSanPhams;
 		*/
 	//bi-directional many-to-one association to DonViVanChuyen
-	@ManyToOne
-	@JoinColumn(name="ID_DVVC")
-	private DonViVanChuyen donViVanChuyen;
+	
+//	@ManyToOne
+//	@JoinColumn(name="ID_DVVC")
+//	private DonViVanChuyen donViVanChuyen;
 
 	//bi-directional many-to-one association to KhachHang
 	@ManyToOne
@@ -100,13 +101,13 @@ public class DonDatHang implements Serializable {
 		return chiTietDonDatHang;
 	}
 
-	public DonViVanChuyen getDonViVanChuyen() {
-		return this.donViVanChuyen;
-	}
-
-	public void setDonViVanChuyen(DonViVanChuyen donViVanChuyen) {
-		this.donViVanChuyen = donViVanChuyen;
-	}
+//	public DonViVanChuyen getDonViVanChuyen() {
+//		return this.donViVanChuyen;
+//	}
+//
+//	public void setDonViVanChuyen(DonViVanChuyen donViVanChuyen) {
+//		this.donViVanChuyen = donViVanChuyen;
+//	}
 
 	public KhachHang getKhachHang() {
 		return this.khachHang;

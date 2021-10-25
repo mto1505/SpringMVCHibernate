@@ -30,7 +30,6 @@ public class SanPhamDaoImpl implements SanPhamDao {
 		
 		List<SanPham> listSanPham2=entityManager.createQuery("select id from SanPham").getResultList();
 		List<SanPham> listSanPham=entityManager.createQuery("from SanPham").getResultList();
-	
 		return listSanPham2;
 	}
 

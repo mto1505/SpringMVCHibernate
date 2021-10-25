@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.springmvchibernate.ChiTietTrangThaiKhiTiepNhanXe</class>
+    <class>com.mycompany.springmvchibernate.NhaCungCap</class>
+    <class>com.mycompany.springmvchibernate.XeMay</class>
+    <class>com.mycompany.springmvchibernate.NhanVien</class>
+    <class>com.mycompany.springmvchibernate.LinhKien</class>
+    <class>com.mycompany.springmvchibernate.DichVuBaoDuong</class>
+    <class>com.mycompany.springmvchibernate.Quyen</class>
+    <class>com.mycompany.springmvchibernate.Sysdiagrams</class>
+    <class>com.mycompany.springmvchibernate.PhuTungCanKiemTra</class>
+    <class>com.mycompany.springmvchibernate.LoaiXe</class>
+    <class>com.mycompany.springmvchibernate.ChiTietThayTheLinhKien</class>
+    <class>com.mycompany.springmvchibernate.TaiKhoan</class>
+    <class>com.mycompany.springmvchibernate.DonBaoDuong</class>
+    <class>com.mycompany.springmvchibernate.ChiTietDonBaoDuong</class>
+    <class>com.mycompany.springmvchibernate.LoaiTrangThaiPhuTung</class>
+    <class>com.mycompany.springmvchibernate.KhachHang</class>
+    <properties/>
+  </persistence-unit>
+</persistence>

@@ -40,19 +40,12 @@ public class DonDatHangDTO {
 		this.tinhTrang = tinhTrang;
 	}
 
-	public DonViVanChuyen getDonViVanChuyen() {
-		return donViVanChuyen;
-	}
 
-	public void setDonViVanChuyen(DonViVanChuyen donViVanChuyen) {
-		this.donViVanChuyen = donViVanChuyen;
-	}
-
-	public KhachHang getKhachHang() {
+	public KhachHangDTO getKhachHang() {
 		return khachHang;
 	}
 
-	public void setKhachHang(KhachHang khachHang) {
+	public void setKhachHang(KhachHangDTO khachHang) {
 		this.khachHang = khachHang;
 	}
 
@@ -60,8 +53,9 @@ public class DonDatHangDTO {
 
 	private int tinhTrang;
 	
-	private DonViVanChuyen donViVanChuyen;
+	
+	private KhachHangDTO khachHang;
 
-	private KhachHang khachHang;
+	
 	
 }

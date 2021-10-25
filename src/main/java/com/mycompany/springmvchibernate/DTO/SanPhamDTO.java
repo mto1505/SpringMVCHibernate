@@ -13,16 +13,22 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
 import com.mycompany.springmvchibernate.Entity.DanhGia;
 import com.mycompany.springmvchibernate.Entity.HinhAnhSP;
 import com.mycompany.springmvchibernate.Entity.Loai;
-
+//@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class SanPhamDTO {
 
 	
-	private String id;
+	private int id;
 	
 	private String cameraSau;
 
@@ -32,7 +38,7 @@ public class SanPhamDTO {
 
 	private String moTa;
 
-	private String name;
+	private String ten;
 
 	private String pinSac;
 	
@@ -41,16 +47,19 @@ public class SanPhamDTO {
 	private LoaiDTO loai;
 	
 	private List<ChiTietSanPhamDTO> chiTietSanPhams=new ArrayList<>();
-
-	private List<DanhGiaDTO> danhGias=new ArrayList<>();
 	
+	private List<DanhGiaDTO> danhGias=new ArrayList<>();
+
 	private List<HinhAnhDTO> hinhAnhSps=new ArrayList<>();
 
+	private List<CommonsMultipartFile> hinhAnhs=new ArrayList<>();
+
+
 	public SanPhamDTO() {
-		super();
+		
 	}
 
-	public SanPhamDTO(String id, String cameraSau, String cameraTruoc, String manHinh, String moTa, String name,
+	public SanPhamDTO(int id, String cameraSau, String cameraTruoc, String manHinh, String moTa, String name,
 			String pinSac, String sim, LoaiDTO loai) {
 		
 		this.id = id;
@@ -58,18 +67,50 @@ public class SanPhamDTO {
 		this.cameraTruoc = cameraTruoc;
 		this.manHinh = manHinh;
 		this.moTa = moTa;
-		this.name = name;
+		this.ten = name;
 		this.pinSac = pinSac;
 		this.sim = sim;
 		this.loai = loai;
 		
 	}
+	public List<HinhAnhDTO> getHinhAnhSps() {
+		return hinhAnhSps;
+	}
 
-	public String getId() {
+	public void setHinhAnhSps(List<HinhAnhDTO> hinhAnhSps) {
+		this.hinhAnhSps = hinhAnhSps;
+	}
+	public List<DanhGiaDTO> getDanhGias() {
+		return danhGias;
+	}
+
+	public void setDanhGias(List<DanhGiaDTO> danhGias) {
+		this.danhGias = danhGias;
+	}
+
+	public List<CommonsMultipartFile> getHinhAnhs() {
+		return hinhAnhs;
+	}
+
+	public void setHinhAnhs(List<CommonsMultipartFile> hinhAnhs) {
+		this.hinhAnhs = hinhAnhs;
+	}
+
+	public String getTen() {
+		return ten;
+	}
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+	
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -105,13 +146,7 @@ public class SanPhamDTO {
 		this.moTa = moTa;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	public String getPinSac() {
 		return pinSac;
@@ -144,21 +179,34 @@ public class SanPhamDTO {
 	public void setChiTietSanPhams(List<ChiTietSanPhamDTO> chiTietSanPhams) {
 		this.chiTietSanPhams = chiTietSanPhams;
 	}
-
-	public List<DanhGiaDTO> getDanhGias() {
-		return danhGias;
+	public HinhAnhDTO addHinhAnh(HinhAnhDTO hinhAnhSP)
+	{
+		getHinhAnhSps().add(hinhAnhSP);
+		hinhAnhSP.setSanPham(this);
+		return hinhAnhSP;
+		
+		
 	}
-
-	public void setDanhGias(List<DanhGiaDTO> danhGias) {
-		this.danhGias = danhGias;
+	public HinhAnhDTO removeHinhAnh(HinhAnhDTO hinhAnhSP)
+	{
+			getHinhAnhSps().remove(hinhAnhSP);
+			hinhAnhSP.setSanPham(null);
+			return hinhAnhSP;
+		
 	}
+	
+	public ChiTietSanPhamDTO addChiTietSanPham(ChiTietSanPhamDTO ChiTietSanPhamSP)
+	{
+		getChiTietSanPhams().add(ChiTietSanPhamSP);
+		ChiTietSanPhamSP.setSanPham(this);
+		return ChiTietSanPhamSP;
 
-	public List<HinhAnhDTO> getHinhAnhSps() {
-		return hinhAnhSps;
 	}
-
-	public void setHinhAnhSps(List<HinhAnhDTO> hinhAnhSps) {
-		this.hinhAnhSps = hinhAnhSps;
+	public ChiTietSanPhamDTO removeChiTietSanPham(ChiTietSanPhamDTO hinhAnhSP)
+	{
+			getHinhAnhSps().remove(hinhAnhSP);
+			hinhAnhSP.setSanPham(null);
+			return hinhAnhSP;
 	}
 
 }

@@ -17,7 +17,7 @@ public class KhachHang implements Serializable {
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	@Column(name="DiaChi")

@@ -21,35 +21,35 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  * @author MinhTo
  */
 public class Log4jConfigListener implements ServletContextListener {
-    @Override
-public void contextDestroyed(ServletContextEvent servletcontextevent) {
-    LogManager.shutdown();
-}
+	@Override
+	public void contextDestroyed(ServletContextEvent servletcontextevent) {
+		LogManager.shutdown();
+	}
 
-@Override
-public void contextInitialized(ServletContextEvent servletcontextevent) {
+	@Override
+	public void contextInitialized(ServletContextEvent servletcontextevent) {
 
-    ServletContext context = servletcontextevent.getServletContext();
+		ServletContext context = servletcontextevent.getServletContext();
 
-    String path = null;
+		String path = null;
 
-    path = context.getInitParameter("log4jConfigLocation");
+		path = context.getInitParameter("log4jConfigLocation");
 
-    PathMatchingResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
-    Resource[] resources = null;
-    try {
-        resources = pathResolver.getResources(path);
+		PathMatchingResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+		Resource[] resources = null;
+		try {
+			resources = pathResolver.getResources(path);
 
-        for (Resource resource : resources) {
-            File file = resource.getFile();
-            path = file.getAbsolutePath();
-            break; // read only the first configuration
-        }
-    } catch (IOException e) {
-        context.log("Unable to load log4j configuration file", e);
-    }
+			for (Resource resource : resources) {
+				File file = resource.getFile();
+				path = file.getAbsolutePath();
+				break; // read only the first configuration
+			}
+		} catch (IOException e) {
+			context.log("Unable to load log4j configuration file", e);
+		}
 
-    LogManager.resetConfiguration();
-    DOMConfigurator.configure(path);
-}
+		LogManager.resetConfiguration();
+		DOMConfigurator.configure(path);
+	}
 }

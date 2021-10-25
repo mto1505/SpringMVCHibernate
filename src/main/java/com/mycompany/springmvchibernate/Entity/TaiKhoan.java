@@ -17,6 +17,7 @@ public class TaiKhoan implements Serializable {
 
 	@Id
 	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	@Column(name="Password")

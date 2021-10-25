@@ -3,6 +3,8 @@ package com.mycompany.springmvchibernate.DTO;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
+import com.mycompany.springmvchibernate.Entity.TaiKhoan;
+
 public class KhachHangDTO {
 	
 	private int id;
@@ -21,7 +23,10 @@ public class KhachHangDTO {
 
 
 	private String ten;
-
+	
+	private GioHangDTO gioHang;
+	
+	private TaiKhoanDTO taiKhoan;
 
 	public int getId() {
 		return id;
@@ -83,15 +88,10 @@ public class KhachHangDTO {
 	}
 
 
-	public KhachHangDTO(int id, String diaChi, String email, String hoVaTenDem, String soDienThoai, String ten) {
-		super();
-		this.id = id;
-		this.diaChi = diaChi;
-		this.email = email;
-		this.hoVaTenDem = hoVaTenDem;
-		this.soDienThoai = soDienThoai;
-		this.ten = ten;
-	}
+	
+
+
+	
 	
 	
 }

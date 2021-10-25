@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author MinhTo
  */
 @Controller
+
 public class HomeController {
 	
 	@Autowired

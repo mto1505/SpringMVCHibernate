@@ -2,6 +2,9 @@ package com.mycompany.springmvchibernate.Entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.List;
 
 
@@ -24,6 +27,7 @@ public class Mau implements Serializable {
 
 	//bi-directional many-to-one association to ChiTietSanPham
 	@OneToMany(mappedBy="mau")
+	@JsonBackReference
 	private List<ChiTietSanPham> chiTietSanPhams;
 
 	public Mau() {

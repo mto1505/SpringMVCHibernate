@@ -10,5 +10,11 @@ public class GioHangDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public GioHangDTO(int id) {
+		
+		this.id = id;
+	}
+	
 	
 }

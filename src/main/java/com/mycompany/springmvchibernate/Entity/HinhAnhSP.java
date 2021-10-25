@@ -23,13 +23,18 @@ public class HinhAnhSP implements Serializable {
 	private String hinhAnh;
 
 	//bi-directional many-to-one association to SanPham
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name="IdSanPham")
 	private SanPham sanPham;
 
 	public HinhAnhSP() {
 	}
-
+	@Transient
+    public String getPhotosImagePath() {
+        if (hinhAnh == null) return null;
+         
+        return "/product-photos/" + sanPham.getTen() + "/" + hinhAnh;
+    }
 	public int getId() {
 		return this.id;
 	}

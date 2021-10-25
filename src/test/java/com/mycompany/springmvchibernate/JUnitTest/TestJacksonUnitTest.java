@@ -12,7 +12,12 @@ import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
 import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
 import com.mycompany.springmvchibernate.Entity.SanPham;
+import com.mycompany.springmvchibernate.Repositories.ChiTietSanPhamRepository;
+import com.mycompany.springmvchibernate.Repositories.SanPhamRepository;
+import com.mycompany.springmvchibernate.Service.ISanPhamService;
 import com.mycompany.springmvchibernate.Service.Convert.KhachHangConvert;
+import com.mycompany.springmvchibernate.Service.Convert.SanPhamConvert;
+import com.mycompany.springmvchibernate.Service.Impl.SanPhamService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,21 +69,63 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/applicationContext-persistence-test.xml",})
 @ActiveProfiles(profiles = "test")
 /*@PropertySource("classpath:application-test.properties")*/
 public class TestJacksonUnitTest {
 	
 	KhachHangConvert khachHangConvert = new KhachHangConvert();
-	
+	@Autowired
+	SanPhamConvert sanPhamConvert;
+	@Autowired
+	ISanPhamService sanPhamService;
+	@Autowired
+	SanPhamRepository sanPhamRepository;
+	@Autowired
+	ChiTietSanPhamRepository ctSanPhamRepository;
 	@PersistenceContext
 	private EntityManager em;
 	 @Autowired
-	    ModelMapper modelMapper;
+	 ModelMapper modelMapper;
+	 
+	// @Test
+	 public void testFindCTSPBySanPham()
+	 {
+		 
+		 
+			
+		 List<ChiTietSanPham> list=ctSanPhamRepository.findBySanPham_Id("iphonecCi22");
+		 assertNotNull(list);
+		 System.out.println(list.size());
+		 System.out.println(list.get(0).getSanPham().getManHinh());
+	 }
+	 
+	//@Test
+	public void testFindAllSanPham()
+	{
+		List<SanPham> sanPhams=sanPhamRepository.findAllAndFetchChiTiet();
+		assertNotNull(sanPhams);
+		System.out.println(sanPhams.get(0).getChiTietSanPhams().get(0).getBoNho().getDungLuong());
+		List<SanPhamDTO> listDTO=sanPhamConvert.toDTOs(sanPhams);
+		
+		assertNotNull(listDTO);
 	
-	
-	@Test
+		System.out.println("Gía chi tiêt san phẩm "+listDTO.get(0).getChiTietSanPhams().get(0).getDonGia());
+		
+	}
+	 
+	//@Test
+	public void testFindSanPhamDTO()
+	{
+		List<SanPham> listSp=sanPhamRepository.findAll();
+		List<SanPhamDTO> sanPhamDTOs=sanPhamService.findAll();
+		System.out.println(listSp.get(0).getLoai().getTen());
+		System.out.println(sanPhamDTOs.get(0).getLoai().getTen());
+		assertNotNull(sanPhamDTOs);
+	}
+	 
+	//@Test
 	public void test() {
 		/*System.out.println("hello unit test");
 		List<SanPham> sanPhams=transactionManager.createQuery("select * from San_Pham").getResultList();
@@ -91,10 +138,8 @@ public class TestJacksonUnitTest {
     public static void setUpClass() {
     	
 
-    }
-    
-    
-    public Properties loadPropertiesFile(String filePath) {
+    }  
+   public Properties loadPropertiesFile(String filePath) {
     	
         Properties prop = new Properties();
 
@@ -199,7 +244,7 @@ public class TestJacksonUnitTest {
     
     @Transactional
     @Rollback(false)
-    @Test
+    //@Test
     public void insertSanPhamTest() throws IOException
     {
     	/*String json="\"id\":\"ipmax\","

@@ -26,6 +26,8 @@ public class VaiTro implements Serializable {
 	@OneToMany(mappedBy="vaiTro")
 	private List<TaiKhoan> taiKhoans;
 
+	
+
 	public VaiTro() {
 	}
 
