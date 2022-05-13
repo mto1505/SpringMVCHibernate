@@ -10,6 +10,6 @@ import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
 public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham,Integer>{
 	
 	
-	List<ChiTietSanPham> findBySanPham_Id(String idSanPham);
+	List<ChiTietSanPham> findBySanPham_Id(Integer idSanPham);
 	List<ChiTietSanPham> findAll();
 }

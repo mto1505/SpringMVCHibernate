@@ -129,7 +129,7 @@
 										<label for="description">Mô tả sản phẩm</label>
 										<textarea name="moTa" cols="40" rows="3" class="form-control "
 											rules="required" id="description" name="moTa">${sanPham.getMoTa()}</textarea>
-										<button type="button" onclick="getDataEditor()">Lấy dữ liệu</button>
+										<!-- <button type="button" onclick="getDataEditor()">Lấy dữ liệu</button> -->
 									
 									</div>
 									
@@ -173,7 +173,6 @@
 										<div class="form-group image col-md-3 ">
 											<div class="image-review"></div>
 										</div>
-
 									</div>
 									<h2>
 										Thông tin chi tiết <span class="badge badge-secondary"></span>

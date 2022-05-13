@@ -6,9 +6,8 @@
 package com.mycompany.springmvchibernate.JUnitTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.springmvchibernate.KhachHang;
-import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO;
-import com.mycompany.springmvchibernate.Service.Convert.KhachHangConvert;
+import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO2;
+import com.mycompany.springmvchibernate.Service.Convert.KhachHangConvertTest;
 import com.mycompany.springmvchibernate.Service.IKhachHangService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
@@ -32,26 +32,27 @@ import org.springframework.test.context.web.WebAppConfiguration;
  *
  * @author MinhTo
  */
-@WebAppConfiguration
+/*@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/testContext.xml",})
-@ActiveProfiles(profiles = "test")
-@PropertySource("classpath:application-test.properties")
-
+@ContextConfiguration(locations = {"classpath:testContext.xml",})
+@ContextConfiguration(locations = {"classpath:applicationContext-persistence-test.xml"})
+@PropertySource("classpath:application-test.properties")*/
 public class TestJacksonUnit {
-
+	
+	@Value("${jdbc.username.username}")
+	private static String active;
   private Logger logger = Logger.getLogger(TestJacksonUnit.class);
    /* KhachHangConvert khachHangConvert = new KhachHangConvert();
 
     @Autowired
     private IKhachHangService khachHangService;
 */
-    @Test
+    //@Test
     public void whenDeserializeDateWithJackSon() throws IOException {
         String json = "{\"id\":1,\"ten\":\"MinhTo\",\"sdt\":\"093939323\",\"gioitinh\":\"Nam\",\"ngaySinh\":\"15-04-2000\"}";
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        KhachHangDTO khachHangDTO = objectMapper.readerFor(KhachHangDTO.class).readValue(json);
+        KhachHangDTO2 khachHangDTO = objectMapper.readerFor(KhachHangDTO2.class).readValue(json);
         System.out.println("Khach DTO is " + khachHangDTO.getNgaySinh());
 
         logger.info("This is an info log entry");
@@ -69,6 +70,7 @@ public class TestJacksonUnit {
 
         try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath)) {
             prop.load(resourceAsStream);
+           
         } catch (IOException e) {
             System.err.println("Unable to load properties file : " + filePath);
         }
@@ -76,11 +78,17 @@ public class TestJacksonUnit {
         return prop;
 
     }
-    @Test
+    //@Test
     public void loadFile() 
     { 	
     	TestJacksonUnit app=new TestJacksonUnit();
     	Properties prop = app.loadPropertiesFile("test.properties");
         prop.forEach((k, v) -> System.out.println(k + ":" + v));
+      
+    }
+  //  @Test
+    public void showEnvironemt() {
+    	System.out.println("active "+active);
+    	
     }
 }

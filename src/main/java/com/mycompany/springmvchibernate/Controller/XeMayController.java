@@ -5,8 +5,7 @@
  */
 package com.mycompany.springmvchibernate.Controller;
 
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 import com.mycompany.springmvchibernate.Service.ILoaiXeService;
 import com.mycompany.springmvchibernate.Service.IXeMayService;
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author MinhTo
  */
-@Controller
-public class XeMayController {
+/*@Controller
+public class XeMayController {*/
 
   /*  @Autowired
     IXeMayService xeMayService;
@@ -46,4 +45,3 @@ public class XeMayController {
         return modelAndView;
     }*/
 
-}

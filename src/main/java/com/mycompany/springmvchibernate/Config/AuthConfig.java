@@ -8,6 +8,10 @@ package com.mycompany.springmvchibernate.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 /*import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,17 +22,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 /*@Configuration
 @EnableWebSecurity*/
-public class AuthConfig {/*extends WebSecurityConfigurerAdapter {
+public class AuthConfig{
 
-    
-    
 
-    @Override
+   /* @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
 
-        {
-            http.csrf().disable();
+        {		
+        	   http.apply(new SpringSocialConfigurer())
+               //
+               .signupUrl("/signup").postFailureUrl("/dang-nhap");
+        	   http.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
+        	   
+
+       
+            
         }
     }*/
+
+	/*@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManagerBean();
+	}
+*/
+	
+    
 }

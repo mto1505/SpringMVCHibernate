@@ -3,12 +3,17 @@ package com.mycompany.springmvchibernate.DTO;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mycompany.springmvchibernate.Entity.BoNho;
 import com.mycompany.springmvchibernate.Entity.ChiTietDonDatHang;
 import com.mycompany.springmvchibernate.Entity.ChiTietGioHang;
@@ -18,10 +23,10 @@ import com.mycompany.springmvchibernate.Entity.Ram;
 import com.mycompany.springmvchibernate.Entity.SanPham;
 
 public class ChiTietSanPhamDTO {
-
+	
 	private int id;
-
-	private BigDecimal donGia;
+	//BigDecimal
+	private float donGia;
 
 	private int soLuong;
 
@@ -32,14 +37,21 @@ public class ChiTietSanPhamDTO {
 	private Mau mau;
 
 	private Ram ram;
-
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true)
 	private SanPhamDTO sanPham;
 
 	public ChiTietSanPhamDTO() {
 
 	}
 
-	public ChiTietSanPhamDTO(int id, BigDecimal donGia, int soLuong, BoNho boNho, Chip chip, Mau mau, Ram ram,
+	public ChiTietSanPhamDTO(float donGia, int soLuong) {
+		super();
+		this.donGia = donGia;
+		this.soLuong = soLuong;
+	}
+
+	public ChiTietSanPhamDTO(int id, float  donGia, int soLuong, BoNho boNho, Chip chip, Mau mau, Ram ram,
 			SanPhamDTO sanPham) {
 
 		this.id = id;
@@ -68,11 +80,11 @@ public class ChiTietSanPhamDTO {
 		this.id = id;
 	}
 
-	public BigDecimal getDonGia() {
+	public float   getDonGia() {
 		return donGia;
 	}
 
-	public void setDonGia(BigDecimal donGia) {
+	public void setDonGia(float  donGia) {
 		this.donGia = donGia;
 	}
 

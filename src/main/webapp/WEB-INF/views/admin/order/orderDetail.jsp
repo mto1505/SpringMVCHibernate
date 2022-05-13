@@ -49,13 +49,13 @@
 												<a href="${DetailOrder}/${dondathang.getId()}" class="green bigger-140 show-details-btn"
 													title="Show Details"> <i
 													class="ace-icon fa fa-angle-double-down"></i> <span
-													class="sr-only">Details</span>
+													class="sr-only">Details ${dondathang.diaChi} </span>
 												</a>
 											</div>
 										</td>
 										<td colspan="1">${dondathang.getId()}</td>
 										<td colspan="1">${dondathang.getKhachHang().getSoDienThoai()}</td>
-										<td colspan="3">${dondathang.getKhachHang().getDiaChi()}</td>
+										<td colspan="3">${dondathang.diaChi not empty ? dondathang.diaChi : dondathang.getKhachHang().getDiaChi() }</td>
 										<td colspan="3">${dondathang.getKhachHang().getHoVaTenDem()}
 											${dondathang.getKhachHang().getTen()}</td>
 										<td colspan="2">${dondathang.getThoiGian()}</td>

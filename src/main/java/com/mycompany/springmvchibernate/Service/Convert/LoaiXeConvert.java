@@ -5,8 +5,7 @@
  */
 package com.mycompany.springmvchibernate.Service.Convert;
 
-import com.mycompany.springmvchibernate.LoaiXe;
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -25,27 +24,27 @@ public class LoaiXeConvert {
     ModelMapper modelMapper;
     
     
-    public LoaiXeDTO toDTO(LoaiXe loaiXe)
+    /*public LoaiXeDTO2 toDTO(LoaiXe loaiXe)
     {
-       LoaiXeDTO loaiXeDTO=modelMapper.map(loaiXe,LoaiXeDTO.class);
+       LoaiXeDTO2 loaiXeDTO=modelMapper.map(loaiXe,LoaiXeDTO2.class);
        return loaiXeDTO;
     
     }
-    public LoaiXe toEntity(LoaiXeDTO loaiXeDTO)
+    public LoaiXe toEntity(LoaiXeDTO2 loaiXeDTO)
     {
         LoaiXe loaiXe=modelMapper.map(loaiXeDTO, LoaiXe.class);
         return loaiXe;
     }
-    public List<LoaiXe> toEntitys(List<LoaiXeDTO> loaiXeDTO)
+    public List<LoaiXe> toEntitys(List<LoaiXeDTO2> loaiXeDTO)
     {
         List<LoaiXe> loaiXe=modelMapper.map(loaiXeDTO, new TypeToken<List<LoaiXe>>(){}.getType());
         return loaiXe;
     }
-     public List<LoaiXeDTO> toDTOs(List<LoaiXe> listLoaiXe)
+     public List<LoaiXeDTO2> toDTOs(List<LoaiXe> listLoaiXe)
     {
-        List<LoaiXeDTO> loaiXe=modelMapper.map(listLoaiXe, new TypeToken<List<LoaiXeDTO>>(){}.getType());
+        List<LoaiXeDTO2> loaiXe=modelMapper.map(listLoaiXe, new TypeToken<List<LoaiXeDTO2>>(){}.getType());
         return loaiXe;
-    }
+    }*/
     
     
     

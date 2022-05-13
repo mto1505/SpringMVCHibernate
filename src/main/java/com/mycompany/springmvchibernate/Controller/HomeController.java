@@ -5,11 +5,16 @@
  */
 package com.mycompany.springmvchibernate.Controller;
 
+import com.mycompany.springmvchibernate.Config.CaptchaSettings;
+import com.mycompany.springmvchibernate.DTO.KhachHangDTO;
+import com.mycompany.springmvchibernate.DTO.TaiKhoanDTO;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
 import com.mycompany.springmvchibernate.Dao.SanPhamDao;
 import com.mycompany.springmvchibernate.Entity.SanPham;
 import com.mycompany.springmvchibernate.Service.IXeMayService;
 import java.util.List;
+
+import javax.resource.ResourceException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +30,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @author MinhTo
  */
 @Controller
-
 public class HomeController {
 	
 	@Autowired
 	private SanPhamDao sanPhamDao;
+	
+	@Autowired
+	CaptchaSettings captcha;
 	
 	@RequestMapping(value="/quan-tri/trang-chu",method=RequestMethod.GET)
 	public ModelAndView trangChu()
@@ -41,6 +48,26 @@ public class HomeController {
 		return view;
 		
 	}
+	@RequestMapping(value="/dang-nhap",method=RequestMethod.GET)
+	public ModelAndView loginPage()
+	{
+		KhachHangDTO khachHangDTO=new KhachHangDTO();
+		TaiKhoanDTO taiKhoan=new TaiKhoanDTO();
+		khachHangDTO.setTaiKhoan(taiKhoan);
+		ModelAndView view=new ModelAndView("/register");
+		System.out.println("reCapcha "+captcha.getKey());
+		view.addObject("captcha",captcha);
+		view.addObject("khachHang", khachHangDTO);
+		return view;
+		
+	}
+	@RequestMapping(value="/accessDenied",method=RequestMethod.GET)
+	public String accessDeniedPage()
+	{
+		return "accessDenied";
+		
+	}
+	
 	
    /* @Autowired
     IXeMayService xeMayService;

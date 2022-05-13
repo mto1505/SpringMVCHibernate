@@ -5,7 +5,6 @@
  */
 package com.mycompany.springmvchibernate.DTODemo;
 
-import com.mycompany.springmvchibernate.LoaiXe;
 
 /**
  *

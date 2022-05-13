@@ -22,10 +22,12 @@ public class ChiTietGioHang implements Serializable {
 
 	//bi-directional many-to-one association to ChiTietSanPham
 	@ManyToOne 
+	@MapsId("idCtsp")
 	@JoinColumn(name="ID_CTSP",insertable=false, updatable=false)
 	private ChiTietSanPham chiTietSanPham;
 
 	//bi-directional many-to-one association to GioHang
+	@MapsId("idGh")
 	@ManyToOne
 	@JoinColumn(name="ID_GH",insertable=false, updatable=false)
 	private GioHang gioHang;

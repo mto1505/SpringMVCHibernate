@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(ChiTietDonDatHangPK.class)
 public abstract class ChiTietDonDatHangPK_ {
 
-	public static volatile SingularAttribute<ChiTietDonDatHangPK, String> idCtsp;
+	public static volatile SingularAttribute<ChiTietDonDatHangPK, Integer> idCtsp;
 	public static volatile SingularAttribute<ChiTietDonDatHangPK, Integer> idDdh;
 
 	public static final String ID_CTSP = "idCtsp";

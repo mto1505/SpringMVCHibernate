@@ -5,7 +5,7 @@
  */
 package com.mycompany.springmvchibernate.Comparator;
 
-import com.mycompany.springmvchibernate.KhachHang;
+
 import java.util.Comparator;
 
 /**

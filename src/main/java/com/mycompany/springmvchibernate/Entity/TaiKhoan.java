@@ -1,39 +1,70 @@
 package com.mycompany.springmvchibernate.Entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
 
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 /**
  * The persistent class for the TAI_KHOAN database table.
  * 
  */
 @Entity
-@Table(name="TAI_KHOAN")
-@NamedQuery(name="TaiKhoan.findAll", query="SELECT t FROM TaiKhoan t")
+@Table(name = "TAI_KHOAN")
+@NamedQuery(name = "TaiKhoan.findAll", query = "SELECT t FROM TaiKhoan t")
 public class TaiKhoan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name="Password")
+	@Column(name = "Password")
 	private String password;
 
-	@Column(name="Username")
+	@Column(name = "Username")
 	private String username;
 
-	//bi-directional many-to-one association to KhachHang
-	@OneToOne(mappedBy="taiKhoan")
+	@Enumerated(EnumType.STRING)
+	private AuthProvider provider;
+
+	private String providerId;
+
+	private String imageUrl;
+
+	@Column(name = "Active")
+	private boolean active;
+
+	@OneToOne(mappedBy = "taiKhoan")
+	private VerificationTokenEntity verificationCode;
+	// bi-directional many-to-one association to KhachHang
+	@OneToOne(mappedBy = "taiKhoan")
 	private KhachHang khachHangs;
 
-	//bi-directional many-to-one association to VaiTro
+	// bi-directional many-to-one association to VaiTro
 	@ManyToOne
-	@JoinColumn(name="ID_VT")
+	@JoinColumn(name = "ID_VT", insertable = false, updatable = false)
 	private VaiTro vaiTro;
+
+	public VerificationTokenEntity getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(VerificationTokenEntity verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean getActive() {
+		return active;
+	}
 
 	public TaiKhoan() {
 	}
@@ -71,14 +102,14 @@ public class TaiKhoan implements Serializable {
 	}
 
 	public KhachHang addKhachHang(KhachHang khachHang) {
-	
+
 		khachHang.setTaiKhoan(this);
 
 		return khachHang;
 	}
 
 	public KhachHang removeKhachHang(KhachHang khachHang) {
-		
+
 		khachHang.setTaiKhoan(null);
 
 		return khachHang;

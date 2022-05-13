@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.springmvchibernate.Quyen;
-import com.mycompany.springmvchibernate.TaiKhoan;
 import com.mycompany.springmvchibernate.DTODemo.MyUser;
 
 

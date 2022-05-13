@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.mycompany.springmvchibernate.DTO.ChiTietSanPhamDTO;
+import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
 
 public interface ICTSanPhamService {
 	
@@ -15,7 +16,6 @@ public interface ICTSanPhamService {
 	    public List<ChiTietSanPhamDTO>findAll(Pageable pageable);
 	    public List<ChiTietSanPhamDTO>findAll();
 	    int getTotalItem();
-	    ChiTietSanPhamDTO findById(String id);
-	    public List<ChiTietSanPhamDTO>findAllByIdSanPham();
-	  
+	    public List<ChiTietSanPhamDTO>findAllByIdSanPham(int id);
+	    public ChiTietSanPhamDTO findOneById(Integer id);
 }

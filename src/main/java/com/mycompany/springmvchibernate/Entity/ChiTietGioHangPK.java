@@ -11,12 +11,12 @@ import javax.persistence.*;
 public class ChiTietGioHangPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	
 	@Column(name="ID_GH", insertable=false, updatable=false)
 	private int idGh;
 
 	@Column(name="ID_CTSP", insertable=false, updatable=false)
-	private String idCtsp;
+	private int idCtsp;
 
 	public ChiTietGioHangPK() {
 	}
@@ -26,10 +26,10 @@ public class ChiTietGioHangPK implements Serializable {
 	public void setIdGh(int idGh) {
 		this.idGh = idGh;
 	}
-	public String getIdCtsp() {
+	public int getIdCtsp() {
 		return this.idCtsp;
 	}
-	public void setIdCtsp(String idCtsp) {
+	public void setIdCtsp(int idCtsp) {
 		this.idCtsp = idCtsp;
 	}
 
@@ -43,14 +43,14 @@ public class ChiTietGioHangPK implements Serializable {
 		ChiTietGioHangPK castOther = (ChiTietGioHangPK)other;
 		return 
 			(this.idGh == castOther.idGh)
-			&& this.idCtsp.equals(castOther.idCtsp);
+			&& this.idCtsp==castOther.idCtsp;
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.idGh;
-		hash = hash * prime + this.idCtsp.hashCode();
+		hash = hash * prime + this.idCtsp;
 		
 		return hash;
 	}

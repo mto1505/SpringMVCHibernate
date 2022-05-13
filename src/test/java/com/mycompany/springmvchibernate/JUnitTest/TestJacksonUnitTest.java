@@ -6,17 +6,27 @@
 package com.mycompany.springmvchibernate.JUnitTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.springmvchibernate.Config.MvcConfig;
+import com.mycompany.springmvchibernate.DTO.ChiTietGioHangDTO;
 import com.mycompany.springmvchibernate.DTO.ChiTietSanPhamDTO;
+import com.mycompany.springmvchibernate.DTO.GioHangDTO;
 import com.mycompany.springmvchibernate.DTO.SanPhamDTO;
-import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO2;
+
+import com.mycompany.springmvchibernate.Entity.ChiTietGioHang;
+import com.mycompany.springmvchibernate.Entity.ChiTietGioHangPK;
 import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
+import com.mycompany.springmvchibernate.Entity.GioHang;
 import com.mycompany.springmvchibernate.Entity.SanPham;
+import com.mycompany.springmvchibernate.Repositories.ChiTietGioHangRepository;
 import com.mycompany.springmvchibernate.Repositories.ChiTietSanPhamRepository;
 import com.mycompany.springmvchibernate.Repositories.SanPhamRepository;
+import com.mycompany.springmvchibernate.Service.ICTSanPhamService;
 import com.mycompany.springmvchibernate.Service.ISanPhamService;
-import com.mycompany.springmvchibernate.Service.Convert.KhachHangConvert;
+import com.mycompany.springmvchibernate.Service.Convert.ChiTietGioHangConvert;
+import com.mycompany.springmvchibernate.Service.Convert.KhachHangConvertTest;
 import com.mycompany.springmvchibernate.Service.Convert.SanPhamConvert;
+import com.mycompany.springmvchibernate.Service.Impl.ChiTietGioHangService;
 import com.mycompany.springmvchibernate.Service.Impl.SanPhamService;
 
 import java.io.IOException;
@@ -24,15 +34,19 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
+import org.hibernate.collection.spi.PersistentCollection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -49,10 +63,13 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -67,35 +84,117 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author MinhTo
  */
-@Service
+@Component
 @WebAppConfiguration
-//@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext-persistence-test.xml",})
-@ActiveProfiles(profiles = "test")
-/*@PropertySource("classpath:application-test.properties")*/
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/context/applicationContext.xml","classpath:applicationContext-persistence-test.xml"})
+@ActiveProfiles(profiles = "prod")
+@PropertySource("classpath:application.properties")
 public class TestJacksonUnitTest {
+	@Value("${email}")
+	private String active;
 	
-	KhachHangConvert khachHangConvert = new KhachHangConvert();
-	@Autowired
+	//@Autowired
+	ChiTietGioHangService chiTietGioHangService;
+	KhachHangConvertTest khachHangConvert = new KhachHangConvertTest();
+	
+	ChiTietGioHangConvert chiTietGioHangConvert=new ChiTietGioHangConvert();
+	//@Autowired
+	ICTSanPhamService ctSanPhamService;
+	//@Autowired
 	SanPhamConvert sanPhamConvert;
-	@Autowired
+	//@Autowired
 	ISanPhamService sanPhamService;
 	@Autowired
 	SanPhamRepository sanPhamRepository;
-	@Autowired
+	//@Autowired
 	ChiTietSanPhamRepository ctSanPhamRepository;
+	@Autowired
+	ChiTietGioHangRepository ctGioHangRepository;
 	@PersistenceContext
 	private EntityManager em;
+	
 	 @Autowired
 	 ModelMapper modelMapper;
 	 
 	// @Test
+	 public void testSanPhamBanChay()
+	 {
+		List listResult= sanPhamRepository.findBySellMore(5);
+		System.out.println("Danh sach san pham:"+listResult.toString());
+		assertEquals(11,listResult.size());
+	 }
+	 
+	 @Test 
+	 @Transactional
+	@Rollback(false)  
+	 public void xoaSanPhamCuaGioHang() {
+		GioHang gioHang=em.find(GioHang.class,1);
+		List<ChiTietGioHang> ctghs=gioHang.getChiTietGioHangs();
+		gioHang.getChiTietGioHangs().remove(0);
+		em.persist(gioHang);
+		 em.flush();
+	   /* TypedQuery<GioHang> q=em.createQuery(""
+	    		+ "select distinct s from GioHang s  join fetch  s.chiTietGioHangs where id=:id",GioHang.class).setParameter("id", 1);
+	    
+	    List<GioHang> sanPhamDTOs=q.getResultList();
+	    System.out.println("so luong gio hang:"+sanPhamDTOs.size()+ " id giỏ hàng: "+ sanPhamDTOs.get(0).getId());
+	    GioHang gioHang=  sanPhamDTOs.get(0);
+	    gioHang.getChiTietGioHangs().remove(0);
+	    for (Iterator iterator = sanPhamDTOs.iterator(); iterator.hasNext();) {
+	    	GioHang sanPhamDTO = (GioHang) iterator.next();
+	   
+			System.out.println("so luong san pham trong gio hang"+sanPhamDTO.getChiTietGioHangs().size());
+			System.out.println("so luong san pham trong gio hang"+sanPhamDTO.getChiTietGioHangs().get(0).getChiTietSanPham().getSanPham().getTen());
+			
+		}
+	    em.persist(gioHang);
+	    em.flush();*/
+	    
+		//ctghs.remove(index)
+		 
+	 }
+	// @Test
+	 public void testChiTietGioHangConvert()
+	 {
+		/* List<ChiTietGioHangDTO> chiTietGioHangList=chiTietGioHangService.findByidIdGh(1);
+			HashMap<String,ChiTietGioHangDTO> mapItems=(HashMap<String, ChiTietGioHangDTO>) chiTietGioHangList.stream().collect(Collectors.toMap(ChiTietGioHangDTO::getIdIdCtsp,Function.identity()));
+			 Assert.assertNotNull(mapItems);*/
+			/* modelMapper.getConfiguration()
+         .setPropertyCondition(context -> 
+               (!(context.getSource() instanceof PersistentCollection)||((PersistentCollection)context.getSource()).wasInitialized())
+          ); 
+		 List<ChiTietGioHang> chiTietGioHangs=ctGioHangRepository.findByidIdGh(1);
+		 Assert.assertNotNull(chiTietGioHangs);
+		 Assert.assertNotNull(chiTietGioHangConvert);
+		 
+		 ArrayList<ChiTietGioHangDTO> listChiTietGioHang = modelMapper.map(chiTietGioHangs, new TypeToken<List<ChiTietGioHangDTO>>() {
+	        }.getType());
+		//List<ChiTietGioHangDTO> chiTietGioHangDTOs=chiTietGioHangConvert.toDTOs(chiTietGioHangs);
+		 Assert.assertNotNull(listChiTietGioHang);
+		 System.out.println(listChiTietGioHang.get(0).getIdIdCtsp());
+		 System.out.println(listChiTietGioHang.get(0).getChiTietSanPham().getId());*/
+	 }
+	 
+	// @Test
+	public void findByTenLoaiAndFetchChiTiet()
+		{	
+			Assert.assertNotNull(sanPhamRepository);
+			String tenLoai="Iphone";
+			List<SanPham> sanPham=sanPhamRepository.findByTenLoaiAndFetchChiTiet(tenLoai);
+			Assert.assertNotNull(sanPham.get(0).getHinhAnhSps());
+			Assert.assertNotNull(sanPham);
+			System.out.println(sanPham.get(0).getHinhAnhSps().get(0).getHinhAnh());
+			System.out.println(sanPham.size());
+			System.out.println(sanPham.get(0).getChiTietSanPhams().size());
+		
+		//	System.out.println(sanPham.get(0).getChiTietSanPhams().get(0).getDonGia());
+		}
+	// @Test
 	 public void testFindCTSPBySanPham()
 	 {
-		 
-		 
-			
-		 List<ChiTietSanPham> list=ctSanPhamRepository.findBySanPham_Id("iphonecCi22");
+
+		 List<ChiTietSanPhamDTO> list=ctSanPhamService.findAllByIdSanPham(1008);
 		 assertNotNull(list);
 		 System.out.println(list.size());
 		 System.out.println(list.get(0).getSanPham().getManHinh());
@@ -145,6 +244,7 @@ public class TestJacksonUnitTest {
 
         try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath)) {
             prop.load(resourceAsStream);
+          
         } catch (IOException e) {
             System.err.println("Unable to load properties file : " + filePath);
         }
@@ -168,12 +268,13 @@ public class TestJacksonUnitTest {
     /**
      * Test of whenDeserializeDateWithJackSon method, of class TestJacksonUnit.
      */
-    //@Test
+   @Test
     public void loadFile() 
     { 	
     	TestJacksonUnitTest app=new TestJacksonUnitTest();
     	Properties prop = app.loadPropertiesFile("test.properties");
         prop.forEach((k, v) -> System.out.println(k + ":" + v));
+        System.out.println(active);
     }
    // @Test
     public void testWhenDeserializeDateWithJackSon() throws Exception {
@@ -194,7 +295,7 @@ public class TestJacksonUnitTest {
          String json = "{\"id\":\"1\",\"ten\":\"MinhTo\",\"sdt\":\"093939323\",\"gioitinh\":\"Nam\",\"ngaySinh\":\"2000-01-30\"}";
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        KhachHangDTO khachHangDTO = objectMapper.readerFor(KhachHangDTO.class).readValue(json);
+        KhachHangDTO2 khachHangDTO = objectMapper.readerFor(KhachHangDTO2.class).readValue(json);
         System.out.println("Khach DTO "+ df.format(khachHangDTO.getNgaySinh()));
         Assert.assertEquals("30-01-2000", df.format(khachHangDTO.getNgaySinh()));
      
@@ -208,7 +309,7 @@ public class TestJacksonUnitTest {
  //   @Test
     public void testConvertJsonToEntity() throws IOException
     {
-    	String json="{\"bienSo\":\"13123213\",\"tenXe\":\"sh mode\",\"khachHang\":{\"ten\":\"BuiMinhTo\"},\"loaiXe\":{\"tenLoai\":\"SH\"}}";
+    /*	String json="{\"bienSo\":\"13123213\",\"tenXe\":\"sh mode\",\"khachHang\":{\"ten\":\"BuiMinhTo\"},\"loaiXe\":{\"tenLoai\":\"SH\"}}";
     	  ObjectMapper objectMapper = new ObjectMapper();
     	XeMayDTO2 xeMayDTO=objectMapper.readerFor(XeMayDTO2.class).readValue(json);
     				
@@ -217,7 +318,7 @@ public class TestJacksonUnitTest {
     	System.out.println("tenKhachHang"+xeMayDTO.getKhachHang().getTen());
     	System.out.println("tenLoaiXe"+xeMayDTO.getLoaiXe().getTenLoai());
     	Assert.assertEquals(xeMayDTO.getLoaiXe().getTenLoai(), "SH");
-    		
+    		*/
     	
     }
     
@@ -228,6 +329,7 @@ public class TestJacksonUnitTest {
     		+ "select new com.mycompany.springmvchibernate.DTO.SanPhamDTO(s.id,s.cameraSau,s.cameraTruoc,s.manHinh,s.moTa,s.name,s.pinSac,s.sim,s.loai"
     		+ ")  from SanPham s join  s.chiTietSanPhams",SanPhamDTO.class);
     List<SanPhamDTO> sanPhamDTOs=q.getResultList();
+    
     for (Iterator iterator = sanPhamDTOs.iterator(); iterator.hasNext();) {
 		SanPhamDTO sanPhamDTO = (SanPhamDTO) iterator.next();
 		System.out.println(sanPhamDTO.getChiTietSanPhams());
@@ -262,7 +364,9 @@ public class TestJacksonUnitTest {
     			+ "		{\"id\":\"1\"},"
     			+   "\"mau\":"
     			+ 		"{\"id\":\"1\"}"	
+    		
     			+ 	"}";*/
+    	
     	String json="{\"id\":\"iphonecC4X\",\"manHinh\":\"amoledSupper\",\"name\":\"iphone 19\",\"sim\":\"khong co sim\",\"loai\":{\"id\":\"ip\"},\"chiTietSanPhams\":[{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}},{\"donGia\":\"100000\",\"soLuong\":\"10\",\"boNho\":{\"id\":\"1\"},\"chip\":{\"id\":\"1\"},\"mau\":{\"id\":\"1\"}}]}";
     			
     	ObjectMapper objectMapper=new ObjectMapper();
@@ -270,7 +374,7 @@ public class TestJacksonUnitTest {
     	SanPhamDTO sanPhamDTO=objectMapper.readerFor(SanPhamDTO.class).readValue(json);
     	System.out.println(sanPhamDTO.getChiTietSanPhams().size());
     	
-    	
+    /*	
     	SanPham sanPham=modelMapper.map(sanPhamDTO, SanPham.class);
     	//ChiTietSanPham chiTietSanPham=modelMapper.map(sanPhamDTO.getChiTietSanPhams(),ChiTietSanPham.class);
     	em.persist(sanPham);
@@ -295,7 +399,9 @@ public class TestJacksonUnitTest {
     	System.out.println(sanPham.getSim());
     	System.out.println(sanPham.getTen());
     	System.out.println(sanPham.getLoai().getId());
-    	System.out.println(sanPham.getChiTietSanPhams().get(0).getBoNho().getId());
+    	System.out.println(sanPham.getChiTietSanPhams().get(0).getBoNho().getId());*/
+
+    
     	/*private String id;
 
     	private BigDecimal donGia;

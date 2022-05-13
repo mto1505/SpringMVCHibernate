@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <decorators defaultdir="/decorators">
     <excludes>
-     <pattern>/statics/*</pattern>
+     <pattern>/statics/*</pattern> 
+     <pattern>/template/*</pattern>
       <!--   <pattern>/api*</pattern> -->
-        
     </excludes>
     <decorator name="web" page="web.jsp">
         <pattern>/*</pattern>
@@ -13,5 +13,7 @@
     </decorator>
     <decorator name="login" page="login.jsp">
         <pattern>/dang-nhap</pattern>
+        <pattern>/dang-ki</pattern>
+        
     </decorator>
 </decorators>

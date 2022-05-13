@@ -5,8 +5,8 @@
  */
 package com.mycompany.springmvchibernate.Service.Impl;
 
-import com.mycompany.springmvchibernate.LoaiXe;
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
+
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 import com.mycompany.springmvchibernate.Service.ILoaiXeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

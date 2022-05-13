@@ -5,8 +5,6 @@
  */
 package com.mycompany.springmvchibernate.Specification;
 
-import com.mycompany.springmvchibernate.XeMay;
-import com.mycompany.springmvchibernate.XeMay_;
 
 import java.util.Collection;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,7 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
  */
 public class XeSpecification {
 
-    public static Specification<XeMay> hasBienSoIn(Collection<String> listBienSo) {
+/*    public static Specification<XeMay> hasBienSoIn(Collection<String> listBienSo) {
         return (Root<XeMay> root, CriteriaQuery<?> cq, CriteriaBuilder cb) -> {
             Predicate equalPredicate = root.get(XeMay_.bienSo).in(listBienSo);
             return equalPredicate;
@@ -34,5 +32,5 @@ public class XeSpecification {
             Predicate eqPredicate=cb.equal(root.get(XeMay_.tenxe),tenxe);
             return eqPredicate ; //To change body of generated lambdas, choose Tools | Templates.
         };
-    }
+    }*/
 }

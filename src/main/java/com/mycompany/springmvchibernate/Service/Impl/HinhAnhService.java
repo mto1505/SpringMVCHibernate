@@ -17,9 +17,9 @@ public class HinhAnhService implements IHinhAnh{
 	HinhAnhRepository hinhAnhRepository;
 	
 	@Override
-	public void save(HinhAnhDTO xe) {
+	public void save(HinhAnhSP xe) {
 		// TODO Auto-generated method stub
-		
+		hinhAnhRepository.save(xe);
 	}
 
 	@Override
@@ -35,9 +35,9 @@ public class HinhAnhService implements IHinhAnh{
 	}
 
 	@Override
-	public HinhAnhSP update(HinhAnhDTO xe) {
+	public HinhAnhSP update(HinhAnhSP xe) {
 		// TODO Auto-generated method stub
-		return null;
+		return hinhAnhRepository.save(xe);
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class HinhAnhService implements IHinhAnh{
 	}
 
 	@Override
-	public HinhAnhDTO findById(String id) {
+	public HinhAnhSP findById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return hinhAnhRepository.findOne(id);
 	}
 
 	@Override
-	public List<HinhAnhSP> findAllByIdSanPham(String id) {
+	public List<HinhAnhSP> findAllByIdSanPham(int id) {
 		// TODO Auto-generated method stub	
 		return hinhAnhRepository.findBySanPham_Id(id);
 	}

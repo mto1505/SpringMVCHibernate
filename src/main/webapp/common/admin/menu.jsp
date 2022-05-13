@@ -65,7 +65,7 @@
             <ul class="submenu">
 <!--             /quan-tri/xe-may/danh-sach?type=list&page=1&limit=10&sortName=title&sortBy=desc -->
                 <li>	
-                    <a href='<c:url value="/quan-tri/order/danh-sach?page=1&limit=10"/>'>
+                    <a href='<c:url value="/quan-tri/order/danh-sach?page=1"/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh sách đơn đặt hàng
                     </a>

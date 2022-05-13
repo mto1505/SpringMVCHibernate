@@ -9,5 +9,5 @@ import com.mycompany.springmvchibernate.Entity.HinhAnhSP;
 @Repository
 public interface HinhAnhRepository  extends JpaRepository<HinhAnhSP, Integer>{
 		
-	List<HinhAnhSP> findBySanPham_Id(String id);
+	List<HinhAnhSP> findBySanPham_Id(Integer id);
 }

@@ -40,30 +40,30 @@ public class SanPham implements Serializable {
 	@Column(name = "Ten", length = 50)
 	private String ten;
 
-	@Column(name = "PinSac")
+	@Column(name = "PinSac",length = 100)
 	private String pinSac;
 
 	@Basic(optional = false) // @NotNull is both understand by hibernate and can be used by other layer on
 								// application
-	@Lob
-	@Column(name = "Sim")
+
+	@Column(name = "Sim",length = 100)
 	private String sim;
 
 	// bi-directional many-to-one association to ChiTietSanPham
 
-	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "sanPham", cascade = {CascadeType.ALL}) // mặt inverse
 	private List<ChiTietSanPham> chiTietSanPhams = new ArrayList<>();
 
 	// bi-directional many-to-one association to DanhGia
 
-	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "sanPham", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<DanhGia> danhGias = new ArrayList<>();
 
 	// bi-directional many-to-one association to Hinh_Anh_SP
 
-	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "sanPham", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<HinhAnhSP> hinhAnhSps = new ArrayList<HinhAnhSP>();
-
+	
 	// bi-directional many-to-one association to Loai
 	@ManyToOne
 	@JoinColumn(name = "ID_L", nullable = false, referencedColumnName = "id")

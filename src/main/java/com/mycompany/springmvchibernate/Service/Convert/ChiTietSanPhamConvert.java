@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeToken;
+import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,8 +33,12 @@ public class ChiTietSanPhamConvert {
     ModelMapper modelMapper;
   
     
-    public ChiTietSanPhamDTO toDTO(SanPham SanPham) {
+    public ChiTietSanPhamDTO toDTO(ChiTietSanPham SanPham) {
         //modelMapper.addConverter(toStringDate);
+    	modelMapper.getConfiguration()
+        .setPropertyCondition(context -> 
+              !(context.getSource() instanceof PersistentCollection)
+         ); 
         ChiTietSanPhamDTO ChiTietSanPhamDTO = modelMapper.map(SanPham, ChiTietSanPhamDTO.class);
         return ChiTietSanPhamDTO;
     }
@@ -58,9 +63,12 @@ public class ChiTietSanPhamConvert {
     public List<ChiTietSanPhamDTO> toDTOs(List<ChiTietSanPham> sanPham) {
        // modelMapper.addConverter(toStringDate);
     	modelMapper.getConfiguration()
-           .setPropertyCondition(context -> 
-                 !(context.getSource() instanceof PersistentCollection)
-            ); 
+  	  .setMatchingStrategy(MatchingStrategies.STANDARD);
+    	
+    	modelMapper.getConfiguration()
+        .setPropertyCondition(context -> 
+              (!(context.getSource() instanceof PersistentCollection)||((PersistentCollection)context.getSource()).wasInitialized())
+         ); 
     	//modelMapper.addMappings(propertyMapToChiTietSanPhamDTO);
         ArrayList<ChiTietSanPhamDTO> listChiTietSanPham = modelMapper.map(sanPham, new TypeToken<List<ChiTietSanPhamDTO>>() {
         }.getType());

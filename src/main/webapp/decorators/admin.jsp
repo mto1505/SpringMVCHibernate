@@ -9,12 +9,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="description" content="Static &amp; Dynamic Tables" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<%--  <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" /> --%>
-<link rel="stylesheet"
-	href="<c:url value='/template/admin/css/bootstrap.min.css' />" />
+  <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" /> 
+ <link rel="stylesheet"
+	href="<c:url value='/template/admin/css/bootstrap.min.css' />" /> 
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/font-awesome/4.5.0/css/font-awesome.min.css' />" />
 <link rel="stylesheet"
@@ -57,10 +58,40 @@
 <%-- <script type="text/javascript"  src='<c:url value="/template/admin/js/form-add.js" />'></script> --%>
 	
 	<style type="text/css">
-		
 		*{
 		font-size:16px
 		}
+		.text-overflow-dynamic-container {
+    position: relative;
+    max-width: 100%;
+    padding: 0 !important;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
+    vertical-align: text-bottom !important;
+}
+.text-overflow-dynamic-ellipsis {
+    position: absolute;
+    white-space: nowrap;
+    overflow-y: visible;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    max-width: 100%;
+    min-width: 0;
+    width:100%;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+}
+.text-overflow-dynamic-container:after,
+.text-overflow-dynamic-ellipsis:after {
+    content: '-';
+    display: inline;
+    visibility: hidden;
+    width: 0;
+}
 	</style>
 	
 </head>
@@ -78,8 +109,10 @@
 		</script>
 		<!-- menu-->
 		<%@ include file="/common/admin/menu.jsp"%>
+		
 		<!-- body-->
 		<dec:body></dec:body>
+		
 
 		<!-- footer -->
 		<%@ include file="/common/admin/footer.jsp"%>
@@ -92,8 +125,7 @@
 	</div>
 
 
-	<script
-		src="<c:url value='/template/admin/assets/js/bootstrap.min.js' />"></script>
+	
 	<script
 		src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
 	<script
@@ -108,16 +140,16 @@
 		src="<c:url value='/template/admin/assets/js/jquery.flot.pie.min.js' />"></script>
 	<script
 		src="<c:url value='/template/admin/assets/js/jquery.flot.resize.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/ace.min.js' />"></script>
+
 	<script
 		src="<c:url value='/template/admin/assets/js/bootstrap.min.js'/>"></script>
 
 	<!-- page specific plugin scripts -->
 	<script
 		src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
-
+	<script
+		src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/ace.min.js' />"></script>
 	<!-- DATE PICKER -->
 	<!--  date picker-->
 	<script type="text/javascript"

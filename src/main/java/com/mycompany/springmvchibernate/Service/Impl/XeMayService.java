@@ -5,15 +5,13 @@
  */
 package com.mycompany.springmvchibernate.Service.Impl;
 
-import com.mycompany.springmvchibernate.KhachHang;
+
 
 import com.mycompany.springmvchibernate.Service.Convert.XeMayConvert;
 import com.mycompany.springmvchibernate.Service.IKhachHangService;
 import com.mycompany.springmvchibernate.Service.IXeMayService;
 import com.mycompany.springmvchibernate.Specification.XeSpecification;
-import com.mycompany.springmvchibernate.XeMay;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
 
 import java.util.ArrayList;
 

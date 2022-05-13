@@ -35,13 +35,15 @@ import com.mycompany.springmvchibernate.Entity.ChiTietSanPham;
 import com.mycompany.springmvchibernate.Entity.HinhAnhSP;
 import com.mycompany.springmvchibernate.Entity.Loai;
 import com.mycompany.springmvchibernate.Entity.SanPham;
-
+import com.mycompany.springmvchibernate.Repositories.SanPhamRepository;
+import com.mycompany.springmvchibernate.Repositories.SanPhamRepositoryCustom;
+/*
 
 
 @Component
 @ContextConfiguration(locations = "classpath:applicationContext-persistence-test.xml")
-//@RunWith(SpringJUnit4ClassRunner.class)
-@Profile("test")
+@RunWith(SpringJUnit4ClassRunner.class)
+@Profile("test")*/
 public class KhachHangRepositoryTest {
 	
 	@Autowired
@@ -50,8 +52,20 @@ public class KhachHangRepositoryTest {
 	private EntityManager em;
 	
 	@Autowired
+	SanPhamRepository sanPhamRepo;
+	
+	@Autowired
 	private SanPhamDao sanPhamDao;
 	
+	//@Test
+	public void findByTenLoaiAndFetchChiTiet()
+	{	
+		Assert.assertNull(sanPhamRepo);
+		String tenLoai="Ipad";
+		/*List<SanPham> sanPham=sanPhamRepo.findByTenLoaiAndFetchChiTiet(tenLoai);	
+		Assert.assertNotNull(sanPham);*/
+
+	}
 	//@Test
 	public void testAllSanPham() {
 		// TODO Auto-generated method stub

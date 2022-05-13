@@ -10,32 +10,54 @@ import com.mycompany.springmvchibernate.Entity.DonDatHang;
 
 public class ChiTietDonDatHangDTO {
 
-	private int idDdh;
+	private int idIdDdh;
 
-	private String idCtsp;
+	private int idIdCtsp;
 	
 	private int soLuong;
 
 	private ChiTietSanPhamDTO chiTietSanPham;
 
 	
-	public int getIdDdh() {
-		return idDdh;
+
+
+
+
+
+
+	public ChiTietDonDatHangDTO() {
+		super();
 	}
 
 
-	public void setIdDdh(int idDdh) {
-		this.idDdh = idDdh;
+	public ChiTietDonDatHangDTO(int idIdDdh, int idIdCtsp, int soLuong, ChiTietSanPhamDTO chiTietSanPham,
+			DonDatHangDTO donDatHang) {
+		
+		this.idIdDdh = idIdDdh;
+		this.idIdCtsp = idIdCtsp;
+		this.soLuong = soLuong;
+		this.chiTietSanPham = chiTietSanPham;
+		this.donDatHang = donDatHang;
 	}
 
 
-	public String getIdCtsp() {
-		return idCtsp;
+	public int getIdIdDdh() {
+		return idIdDdh;
 	}
 
 
-	public void setIdCtsp(String idCtsp) {
-		this.idCtsp = idCtsp;
+	public void setIdIdDdh(int idIdDdh) {
+		this.idIdDdh = idIdDdh;
+	}
+
+
+	public int getIdIdCtsp() {
+		return idIdCtsp;
+	}
+
+
+	public void setIdIdCtsp(int idIdCtsp) {
+		this.idIdCtsp = idIdCtsp;
 	}
 
 
@@ -59,17 +81,17 @@ public class ChiTietDonDatHangDTO {
 	}
 
 
-	public DonDatHang getDonDatHang() {
+	public DonDatHangDTO getDonDatHang() {
 		return donDatHang;
 	}
 
 
-	public void setDonDatHang(DonDatHang donDatHang) {
+	public void setDonDatHang(DonDatHangDTO donDatHang) {
 		this.donDatHang = donDatHang;
 	}
 
 
-	private DonDatHang donDatHang;
+	private DonDatHangDTO donDatHang;
 
 	
 }

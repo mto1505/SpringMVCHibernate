@@ -1,20 +1,40 @@
 package com.mycompany.springmvchibernate.DTO;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import com.mycompany.springmvchibernate.Entity.DonViVanChuyen;
-import com.mycompany.springmvchibernate.Entity.KhachHang;
 
 public class DonDatHangDTO {
 	
+	private String chuThich;
+	private String diaChi;
+	private Timestamp thoiGian;
+	private int tinhTrang;
+	
+	
+	private KhachHangDTO khachHang;
+	
+	private List<ChiTietDonDatHangDTO> chiTietDonDatHangs;
 
 	private int id;
+
+	
+	public DonDatHangDTO() {
+		
+	}
+
+	public DonDatHangDTO(String chuThich, String diaChi, Timestamp thoiGian, int tinhTrang, KhachHangDTO khachHang,
+			List<ChiTietDonDatHangDTO> chiTietDonDatHangs, int id) {
+		
+		this.chuThich = chuThich;
+		this.diaChi = diaChi;
+		this.thoiGian = thoiGian;
+		this.tinhTrang = tinhTrang;
+		this.khachHang = khachHang;
+		this.chiTietDonDatHangs = chiTietDonDatHangs;
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
@@ -48,14 +68,41 @@ public class DonDatHangDTO {
 	public void setKhachHang(KhachHangDTO khachHang) {
 		this.khachHang = khachHang;
 	}
-
-	private Timestamp thoiGian;
-
-	private int tinhTrang;
 	
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
 	
-	private KhachHangDTO khachHang;
+	public String getChuThich() {
+		return chuThich;
+	}
+
+	public void setChuThich(String chuThich) {
+		this.chuThich = chuThich;
+	}
 
 	
+	public List<ChiTietDonDatHangDTO> getChiTietDonDatHangs() {
+		return chiTietDonDatHangs;
+	}
+
+	public void setChiTietDonDatHangs(List<ChiTietDonDatHangDTO> chiTietDonDatHangs) {
+		this.chiTietDonDatHangs = chiTietDonDatHangs;
+	}
+	public ChiTietDonDatHangDTO addChiTietDonDatHang(ChiTietDonDatHangDTO chiTietDonDatHang) {
+		getChiTietDonDatHangs().add(chiTietDonDatHang);
+		chiTietDonDatHang.setDonDatHang(this);
+		return chiTietDonDatHang;
+	}
+
+	public ChiTietDonDatHangDTO removeChiTietDonDatHang(ChiTietDonDatHangDTO chiTietDonDatHang) {
+		getChiTietDonDatHangs().remove(chiTietDonDatHang);
+		chiTietDonDatHang.setDonDatHang(null);
+		return chiTietDonDatHang;
+	}
 	
 }

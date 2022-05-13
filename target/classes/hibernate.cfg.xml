@@ -4,7 +4,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="hibernate.connection.password">minhto123</property>
+        <property name="hibernate.connection.password">minhto</property>
         <property name="hibernate.connection.url">jdbc:sqlserver://localhost\\SQLMINHTO:1433;databaseName=APSHOP</property>
         <property name="hibernate.connection.username">minhto</property>
         <property name="hibernate.default_schema">dbo</property>

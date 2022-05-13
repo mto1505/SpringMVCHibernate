@@ -28,7 +28,7 @@ public class ChiTietSanPham implements Serializable {
 	private int soLuong;
 
 	//bi-directional many-to-one association to ChiTietDonDatHang
-	@OneToMany(mappedBy="chiTietSanPham")
+	@OneToMany(mappedBy="chiTietSanPham") 
 	private List<ChiTietDonDatHang> chiTietDonDatHangs;
 	
 /*	@ManyToMany(mappedBy="chiTietSanPhams")
@@ -60,7 +60,7 @@ public class ChiTietSanPham implements Serializable {
 
 	//bi-directional many-to-one association to SanPham
 	@ManyToOne
-	@JoinColumn(name="ID_SP")
+	@JoinColumn(name="ID_SP")  // phía con (phía sở hữu)
 	private SanPham sanPham;
 
 	public ChiTietSanPham() {

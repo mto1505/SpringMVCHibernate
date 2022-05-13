@@ -5,9 +5,8 @@
  */
 package com.mycompany.springmvchibernate.Service;
 
-import com.mycompany.springmvchibernate.XeMay;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+
 
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IXeMayService {
 	
-    public void save(XeMayDTO2 xe);
+  /*  public void save(XeMayDTO2 xe);
     public void delete(String [] ids);
     public void delete(String id);
     public XeMayDTO2 update(XeMayDTO2 xe);
@@ -32,5 +31,5 @@ public interface IXeMayService {
     int getTotalItem();
     XeMayDTO findById(String id);
     public XeMayDTO2 findOneByBienSo(String bienso);
-    public List<XeMayDTO2> findAllByListBienSoAndTen(List bienSo,String name);
+    public List<XeMayDTO2> findAllByListBienSoAndTen(List bienSo,String name);*/
 }

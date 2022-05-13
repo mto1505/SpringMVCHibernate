@@ -63,17 +63,17 @@ public class ChiTietSanPhamService implements ICTSanPhamService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
-	public ChiTietSanPhamDTO findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ChiTietSanPhamDTO> findAllByIdSanPham(int id) {
+		List<ChiTietSanPham> list=chiTietSanPhamRepository.findBySanPham_Id(id);
+		return chiTietSanPhamConvert.toDTOs(list);
 	}
 
 	@Override
-	public List<ChiTietSanPhamDTO> findAllByIdSanPham() {
+	public ChiTietSanPhamDTO findOneById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		ChiTietSanPham chiTietSanPham=chiTietSanPhamRepository.findOne(id);
+		return chiTietSanPhamConvert.toDTO(chiTietSanPham);
 	}
 	
 }

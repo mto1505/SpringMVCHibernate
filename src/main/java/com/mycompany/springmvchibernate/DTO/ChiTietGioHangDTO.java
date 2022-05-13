@@ -1,28 +1,54 @@
 package com.mycompany.springmvchibernate.DTO;
 
-import javax.persistence.Column;
+
 
 public class ChiTietGioHangDTO {
 	
-	private int idGh;
-	private String idCtsp;
+	private int idIdGh;
+	private int idIdCtsp;
+	
+	private ChiTietSanPhamDTO chiTietSanPham;
+	
 	
 	private int soLuong;
 
-	public int getIdGh() {
-		return idGh;
+	
+
+	
+	public ChiTietGioHangDTO() {
+		
 	}
 
-	public void setIdGh(int idGh) {
-		this.idGh = idGh;
+	public ChiTietGioHangDTO(int idIdGh, int idIdCtsp, ChiTietSanPhamDTO chiTietSanPham, int soLuong) {
+		
+		this.idIdGh = idIdGh;
+		this.idIdCtsp = idIdCtsp;
+		this.chiTietSanPham = chiTietSanPham;
+		this.soLuong = soLuong;
 	}
 
-	public String getIdCtsp() {
-		return idCtsp;
+	public int getIdIdGh() {
+		return idIdGh;
 	}
 
-	public void setIdCtsp(String idCtsp) {
-		this.idCtsp = idCtsp;
+	public void setIdIdGh(int idIdGh) {
+		this.idIdGh = idIdGh;
+	}
+
+	public int getIdIdCtsp() {
+		return idIdCtsp;
+	}
+
+	public void setIdIdCtsp(int idIdCtsp) {
+		this.idIdCtsp = idIdCtsp;
+	}
+
+	public ChiTietSanPhamDTO getChiTietSanPham() {
+		return chiTietSanPham;
+	}
+
+	public void setChiTietSanPham(ChiTietSanPhamDTO chiTietSanPham) {
+		this.chiTietSanPham = chiTietSanPham;
 	}
 
 	public int getSoLuong() {

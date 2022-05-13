@@ -23,8 +23,8 @@ public class HinhAnhSP implements Serializable {
 	private String hinhAnh;
 
 	//bi-directional many-to-one association to SanPham
-	@ManyToOne
-	@JoinColumn(name="IdSanPham")
+	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.PERSIST})
+	@JoinColumn(name="IdSanPham",updatable=false) // insertable = true => khi thêm 1 hình ảnh vào sản phẩm thì khoá ngoại IdSanPham tự động thêm vào bảng hình ảnh 
 	private SanPham sanPham;
 
 	public HinhAnhSP() {

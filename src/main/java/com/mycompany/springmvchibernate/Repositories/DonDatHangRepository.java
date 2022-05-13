@@ -11,4 +11,5 @@ import com.mycompany.springmvchibernate.Entity.DonDatHang;
 @Repository
 public interface DonDatHangRepository extends JpaRepository<DonDatHang, Integer>{
 	
+	
 }

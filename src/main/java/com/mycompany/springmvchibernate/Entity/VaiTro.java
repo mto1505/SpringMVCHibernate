@@ -2,6 +2,8 @@ package com.mycompany.springmvchibernate.Entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
 import java.util.List;
 
 
@@ -17,6 +19,7 @@ public class VaiTro implements Serializable {
 
 	@Id
 	@Column(name="ID")
+
 	private String id;
 
 	@Column(name="Name")

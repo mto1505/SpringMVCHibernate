@@ -8,13 +8,12 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="APIurl" value="/api-admin-new" />
 <c:url var="NewURL" value="/admin-new-list" />
-<c:url var="UpdateSanPham" value="/quan-tri/product" />
+<c:url var="UpdateSanPham" value="/quan-tri/product/update" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Chỉnh sửa sản phẩm</title>
-
 
 </head>
 
@@ -35,61 +34,69 @@
 						<!-- PAGE CONTENT BEGINS -->
 						<div class="row">
 							<div class="col-md-12">
-								<form action="${UpdateSanPham}?id=${sanPham.getId()}"
-									modelAttribute="sanPhamFormData" method="POST" id="form-submit">
+								<c:if test="${not empty message}"><h1 class="text-success">${message}</h1></c:if>
+								<form:form acceptCharset="UTF-8" action="${UpdateSanPham}?id=${sanPham.getId()}"
+									modelAttribute="sanPham" method="POST" id="form-submit" enctype="application/x-www-form-urlencoded">
 									<div class="form-row">
 										<div class="form-group col-md-6">
-											<label for="input-name">Tên sản phẩm</label> <input
+											<form:label path="ten">Tên sản phẩm</form:label>
+											 <form:input
 												type="text" class="form-control" rules="required"
-												id="input-name" name="ten" value="${sanPham.getTen()}">
-											<span class="form-message"></span>
+												id="input-name" path="ten" value="${sanPham.getTen()}"/>
+											<span class="form-message">
+											</span>
+											<form:errors path="ten" cssClass="text-danger"/>
 										</div>
 										<div class="form-group col-md-6">
-											<label for="input-monitor">Màn hình</label> <input
+											<form:label path="manHinh">Màn hình</form:label>
+											 <form:input
 												type="text" class="form-control"
 												rules="required|min:1|max:100" id="input-monitor"
-												name="manHinh" value="${sanPham.getManHinh()}"> <span
-												class="form-message"></span>
+												path="manHinh" value="${sanPham.getManHinh()}"/>
+												 <span class="form-message"></span>
+												 <form:errors path="manHinh" cssClass="text-danger" />
 										</div>
 									</div>
 									<div class="form-row">
 										<div class="form-group col-md-4">
-											<label for="input-battery">Pin sạc</label> <input type="text"
+											<form:label path="pinSac" for="input-battery">Pin sạc</form:label> <form:input type="text"
 												class="form-control" id="input-battery"
-												rules="required|min:1|max:50" name="pinSac"
-												value="${sanPham.getPinSac()}"> <span
+												rules="required|min:1|max:50" path="pinSac"
+												value="${sanPham.getPinSac()}"/> <span
 												class="form-message"></span>
+												 <form:errors path="pinSac" cssClass="text-danger" />
 										</div>
 										<div class="form-group col-md-4">
-											<label for="input-sim">Sim</label> <input type="text"
-												class="form-control" id="customer-name"
-												rules="required|min:1|max:50" name="sim"
-												value="${sanPham.getSim()}"> <span
+											<form:label path="sim" for="input-sim">Sim</form:label> <form:input type="text"
+												class="form-control" id="customer-path"
+												rules="required|min:1|max:50" path="sim"
+												value="${sanPham.getSim()}"/> <span
 												class="form-message"></span>
+												 <form:errors path="sim" cssClass="text-danger" />
 										</div>
 										<div class="form-group col-md-4">
-											<label for="input-loai">Loại sản phẩm</label> <select
+											<form:label path="loai.id" for="input-loai">Loại sản phẩm</form:label> 
+											<select
 												name="loai.id" id="input-loai" class="form-control"
-												rules="required">
+												rules="required" path="loai.id">
 												<c:forEach var="loai" items="${listLoai}">
-
-													<option value="${loai.getId()}"
+													<option  value="${loai.getId()}"
 														<c:if test="${loai.getId()==sanPham.getLoai().getId()}">selected</c:if>>${loai.getTen()}</option>
-
 												</c:forEach>
 											</select> <span class="form-message"></span>
+											 <form:errors path="loai.id" cssClass="text-danger" />
 										</div>
 
 										<!-- <div class="form-group col-md-4">
                         <label class="form-check-label" for="checkGenderDefault">Giới tính</label>
                         <div class="form-check" style="margin-top:1.2em;">
                             <div class="form-check-inline">
-                                <input class="form-check-input" type="radio"  value="Nam" id="gender-default" name="khachHang.gioitinh">
+                                <input class="form-check-input" type="radio"  value="Nam" id="gender-default" path="khachHang.gioitinh">
                                 <label class="form-check-label" for="gender-default">Nam</label>
                               
                             </div>
                             <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" id="gender-female" value="Nữ"name="khachHang.gioitinh">
+                                <input class="form-check-input" type="radio" id="gender-female" value="Nữ"path="khachHang.gioitinh">
                                 <label class="form-check-label" for="gender-female">Nữ</label> 
                             </div>       
                         </div>
@@ -101,30 +108,33 @@
 
 									<div class="form-row">
 										<div class="form-group col-md-6">
-											<label for="front-camera">Camera Trước</label> <input
+											<form:label path="cameraTruoc" for="front-camera">Camera Trước</form:label> <form:input
 												type="text" class="form-control" id="front-camera"
-												rules="required|max:100" name="cameraTruoc"
-												value="${sanPham.getCameraTruoc()}"> <span
+												rules="required|max:100" path="cameraTruoc"
+												value="${sanPham.getCameraTruoc()}"/> <span
 												class="form-message"></span>
 										</div>
 										<div class="form-group col-md-6">
-											<label for="back-came">Camera Sau</label> <input type="text"
+											<form:label path="cameraSau" for="back-came">Camera Sau</form:label> <form:input type="text"
 												class="form-control" id="back-camera"
-												rules="required|min:1|max:100" name="cameraSau"
-												value="${sanPham.getCameraSau()}"> <span
+												rules="required|min:1|max:100" path="cameraSau"
+												value="${sanPham.getCameraSau()}"/> 
+												<span
 												class="form-message"></span>
+												<form:errors path="cameraSau" cssClass="text-danger" />
 										</div>
 										<!-- <div class="form-group col-md-6 dateForm">
                         <label for="date">Ngày sinh</label>
-                        <input type="text" class="form-control" id="date" name="khachHang.ngaySinh" rules="required" placeholder="MM/DD/YYYY">
+                        <input type="text" class="form-control" id="date" path="khachHang.ngaySinh" rules="required" placeholder="MM/DD/YYYY">
                         <span class="form-message"></span>
                     </div> -->
 									</div>
 									<div class="form-row">
 										<div class="form-group">
-											<label for="description">Mô tả sản phẩm</label>
-											<textarea name="moTa" cols="50" rows="3" class="form-control"
-												rules="required|min:1|max:100" id="description" name="moTa">${sanPham.getMoTa()}</textarea>
+											<label  for="moTa" for="description">Mô tả sản phẩm</label>
+											<textarea name="moTa" cols="50" rows="3" c lass="form-control"
+												rules="required" id="description">${sanPham.moTa}</textarea>
+											<form:errors path="moTa" cssClass="text-danger" />
 										</div>
 
 
@@ -154,10 +164,10 @@
 										</div>
 									</div> -->
 
-									<button type="submit" class="btn btn-primary"
-										id="btnAddOrUpdate">Sửa</button>
+									<form:button type="submit" class="btn btn-primary"
+										id="btnAddOrUpdate">Sửa</form:button>
 
-								</form>
+								</form:form>
 							</div>
 						</div>
 
@@ -175,6 +185,23 @@
 	<script type="text/javascript"
 		src='<c:url value="/template/web/js/validator.js" ></c:url>'></script>
 	<script>
+	var editor = '';
+	 $(document).ready(function () {
+		 	
+   	     editor = CKEDITOR.replace('description'
+//    	    		 {
+//					filebrowserBrowseUrl : 'ckfinder/ckfinder.html',
+//					filebrowserImageBrowseUrl : 'ckfinder/ckfinder.html?type=Images',
+//					filebrowserFlashBrowseUrl : 'ckfinder/ckfinder.html?type=Flash',
+//					filebrowserUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+//					filebrowserImageUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+//					filebrowserFlashUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
+//			 }
+   	     );
+   	     CKFinder.setupCKEditor(editor,"${ckfinder}")
+   	   
+		 });
+	
 	
 		$('.show-details-btn').on(
 				'click',

@@ -7,10 +7,10 @@ package com.mycompany.springmvchibernate.API;
 
 import com.mycompany.springmvchibernate.Service.IXeMayService;
 import com.mycompany.springmvchibernate.Specification.XeSpecification;
-import com.mycompany.springmvchibernate.XeMay;
-import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO;
+
+import com.mycompany.springmvchibernate.DTODemo.KhachHangDTO2;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

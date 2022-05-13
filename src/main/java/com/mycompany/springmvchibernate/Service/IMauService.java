@@ -5,15 +5,9 @@
  */
 package com.mycompany.springmvchibernate.Service;
 
-import com.mycompany.springmvchibernate.KhachHang;
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
-import com.mycompany.springmvchibernate.Entity.Mau;
-
 import java.util.List;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+
+import com.mycompany.springmvchibernate.Entity.Mau;
 
 /**
  *

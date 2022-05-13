@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			 http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			 http://www.springframework.org/schema/security
+			 http://www.springframework.org/schema/security/spring-security-5.3.xsd
+			 http://www.springframework.org/schema/security/oauth2 https://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd">
+
+	<!-- <beans:import resource="dispatcher-servlet.xml" /> -->
+
+	<!-- Authentication Layer -->
+	<!-- Stateless RESTful service using Basic authentication -->
+	<!-- <http pattern="/restful/**" create-session="stateless"> <intercept-url 
+		pattern='/**' access='ROLE_REMOTE' /> <http-basic /> </http> -->
+	<!-- Authenticatin Filter -->
+	<!-- filterChainProxy được khởi tạo khi <http> được thêm vào -->
+	<!-- filterChainProxy chứa danh sách thứ tự SecurityFilter cái mà được định 
+		nghĩa trong Spring application context -->
+
+	<!--http tự động kích hoạt 3 filter: SecurityContextPersistenceFilter, an 
+		ExceptionTranslationFilter and a FilterSecurityInterceptor. -->
+	<!-- HttpSecurityBeanDefinitionParser from Spring framework reads this <http> -->
+	<!-- auto-config ==true kích hoạt 3 filter UsernamePasswordAuthenticationFiler, 
+		BacsicAuthenticationFiler,LogoutFilter -->
+
+
+	<!-- <sec:http pattern="/login" security="none" ></sec:http> -->
+	<!-- OR <intercept-url pattern = "/login.html" access = "IS_AUTHENTICATE_ANONYUMOUSLY" 
+		/> -->
+	<sec:http pattern="/template/**" security="none">
+
+	</sec:http>
+
+	<sec:http auto-config="false" use-expressions="true"
+		disable-url-rewriting="true">
+		<!-- <oauth2-login client-registration-repository-ref="clientRegistrationRepository" 
+			authorized-client-repository-ref="authorizedClientRepository" authorized-client-service-ref="authorizedClientService" -->
+		<sec:oauth2-client>
+			<sec:authorization-code-grant/></sec:oauth2-client>
+		<sec:intercept-url pattern="/quan-tri/**"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/cart/**"
+			access="hasAuthority('ROLE_USER')" />
+		<sec:intercept-url pattern="/oauth2/**"
+			access="permitAll" />
+		<sec:intercept-url pattern="/auth/**"
+			access="permitAll" />
+		<sec:intercept-url pattern="/signin/**"
+			access="permitAll" />
+		<sec:intercept-url pattern="/order/**"
+			access="hasAuthority('ROLE_USER')" />
+		<sec:intercept-url pattern="/logout**"
+			access="hasAuthority('ROLE_USER')" />
+		<sec:intercept-url pattern="/dang-nhap**"
+			access="hasAuthority('ROLE_ANONYMOUS')" />
+
+		<!-- <sec:intercept-url pattern="/quan-tri/trang-chu" access="hasRole('ROLE_ADMIN')" 
+			/> -->
+		<!-- <sec:intercept-url pattern="/quan-tri/*" access="ROLE_ADMIN"/> -->
+		<sec:access-denied-handler
+			error-page="/accessDenied" />
+		<sec:form-login login-page="/dang-nhap"
+			username-parameter="j_username" password-parameter="j_password"
+			login-processing-url="/j_spring_security_check"
+
+			authentication-success-handler-ref="customSuccessHandler"
+			authentication-failure-url="/dang-nhap?incorrectAccount" />
+
+		<sec:logout logout-success-url='/home' />
+		<!-- Session -->
+		<sec:session-management
+			session-authentication-error-url="/dang-nhap?sessionTimeout"
+			session-fixation-protection="newSession"> <!--newSession tạo ra một phiên mới hoàn toàn,nhưng không sao chép, migrateSession 
+				có sao chép -->
+			<sec:concurrency-control
+				error-if-maximum-exceeded="false"
+				expired-url="/dang-nhap?message=max_session" max-sessions="1" />
+		</sec:session-management>
+
+		<!--CSRF -->
+		<sec:csrf disabled="true" />
+
+		<!-- LOGOUT -->
+		<sec:logout delete-cookies="JSESSIONID"
+			invalidate-session="true" />
+
+		<!-- enable remember me -->
+		<!--data-source-ref="dataSource" -->
+		<sec:remember-me
+			services-alias="rememberMeAuthenticationProvider"
+			remember-me-cookie="my-remember-me" />
+		<!-- this bean have in dispatcher-servlet.xml -->
+		<!-- 14 NGÀY -->
+
+		<!-- <sec:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER"/> -->
+	</sec:http>
+
+	<!-- <beans:bean
+		name="org.springframework.security.oauth2.client.registration.ClientRegistrationRepository"
+		class="InMemoryClientRegistrationRepository">
+		<beans:constructor-arg name="registrations" > 
+		<beans:list value-type="org.springframework.security.oauth2.client.registration.ClientRegistration">
+			<beans:bean>
+			
+			<beans:property name="registration-id" value="google"></beans:property>
+			<beans:property name="clientId" value="544867202364-9a6e1a98bo9ich6um0fpcuq52qqfdv5m.apps.googleusercontent.com"></beans:property>
+			<beans:property name="clientSecret" value="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"></beans:property>
+			<beans:property name="redirectUriTemplate" value="http://localhost:8080/SpringMVCHibernate/login/oauth2/code/google"></beans:property>
+			<beans:property name="scope" value="email"></beans:property>
+		
+			
+			</beans:bean>
+		</beans:list>
+		</beans:constructor-arg>
+		</beans:bean> -->
+
+
+	<sec:client-registrations>
+		<sec:client-registration
+			registration-id="google"
+			client-id="544867202364-9a6e1a98bo9ich6um0fpcuq52qqfdv5m.apps.googleusercontent.com"
+			client-secret="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"
+			redirect-uri="http://localhost:8080/SpringMVCHibernate/login/oauth2/code/google"
+			scope="scope1,scope2" provider-id="google" />
+	</sec:client-registrations>
+
+
+	<!-- Authentication Manager -->
+	<sec:authentication-manager
+		alias="authenticationManager"> <!-- ProviderMananger implements Authentication Manager -->
+		<!-- DaoAuthenticationProvider default of http form-login -->
+		<!-- user-service-ref="customUserDetailService" -->
+		<sec:authentication-provider
+			user-service-ref="customUserDetailService">  <!-- Custom Security Filter -->
+			<!-- <sec:user-service > <sec:user name="user" password="12345" authorities="ROLE_USER,ROLE_READ,ROLE_WRITE" 
+				/> <sec:user name="admin" password="12345" authorities="ROLE_USER, ROLE_ADMIN" 
+				/> </sec:user-service> -->
+		 <sec:password-encoder ref="bcryptEncoder"  />
+		</sec:authentication-provider>
+		<!-- <sec:authentication-provider ref="socialAuthenticationProvider" /> -->
+	</sec:authentication-manager>
+	<!-- REMEMBER ME -->
+
+
+
+	<!-- Persistent Remember Me Service -->
+	<beans:bean id="rememberMeAuthenticationProvider"
+		class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+		<beans:constructor-arg value="myAppKey" />
+		<beans:constructor-arg ref="jdbcTokenRepository" />
+		<beans:constructor-arg
+			ref="customUserDetailService" />
+	</beans:bean>
+
+	<!-- Uses a database table to maintain a set of persistent login data -->
+	<beans:bean id="jdbcTokenRepository"
+		class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+		<beans:property name="createTableOnStartup"
+			value="false" />
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+
+
+	<beans:bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<beans:property name="driverClassName"
+			value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<beans:property name="url" value="jdbc:sqlserver://localhost\SQLMINHTO:1433;databaseName=AppleShop" />
+		<beans:property name="username"
+			value="minhto " />
+		<beans:property name="password"
+			value="minhto123" />
+	</beans:bean>
+
+
+	<!-- Configures the social authentication provider which processes authentication 
+		requests made by using supported social authentication services (FB, Twitter 
+		and so on). -->
+	<!-- <beans:bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider"> 
+		<beans:constructor-arg index="0" ref="usersConnectionRepository" /> <beans:constructor-arg 
+		index="1" ref="socialUserDetailsService" /> </beans:bean> -->
+
+	 <beans:bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" 
+		factory-method="noOpText" /> 
+	<!-- This bean determines the account ID of the user. The example application 
+		uses the username as the account ID. -->
+	<!-- <beans:bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/> -->
+
+	<!-- <beans:bean id="socialUserDetailsService" class="com.mycompany.springmvchibernate.Service.Impl.CustomSocialUserDetailsService"></beans:bean> -->
+	<beans:bean id="customUserDetailService"
+		class="com.mycompany.springmvchibernate.Service.Impl.CustomUserDetailService"></beans:bean>
+
+
+	<beans:bean id="customSuccessHandler"
+		class="com.mycompany.springmvchibernate.Config.CustomSuccessHandler"></beans:bean>
+
+	 <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"></beans:bean>
+
+	<!-- <beans:bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter"> 
+		<beans:constructor-arg name="authManager" ref="authenticationManager" /> 
+		<beans:constructor-arg name="userIdSource" ref="userIdSource" /> <beans:constructor-arg 
+		name="usersConnectionRepository" ref="usersConnectionRepository" /> <beans:constructor-arg 
+		name="authServiceLocator" ref="connectionFactoryLocator" /> <beans:property 
+		name="authenticationSuccessHandler" ref="customSuccessHandler" /> </beans:bean> -->
+</beans:beans>

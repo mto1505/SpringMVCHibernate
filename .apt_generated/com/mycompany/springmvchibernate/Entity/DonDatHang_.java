@@ -10,11 +10,13 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(DonDatHang.class)
 public abstract class DonDatHang_ {
 
+	public static volatile SingularAttribute<DonDatHang, String> diaChi;
 	public static volatile SingularAttribute<DonDatHang, Integer> tinhTrang;
 	public static volatile SingularAttribute<DonDatHang, KhachHang> khachHang;
 	public static volatile SingularAttribute<DonDatHang, Integer> id;
 	public static volatile ListAttribute<DonDatHang, ChiTietDonDatHang> chiTietDonDatHangs;
 	public static volatile SingularAttribute<DonDatHang, Timestamp> thoiGian;
+	public static volatile SingularAttribute<DonDatHang, String> chuThich;
 
 }
 

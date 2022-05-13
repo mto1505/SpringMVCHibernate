@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:security="http://www.springframework.org/schema/security"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+ http://www.springframework.org/schema/security
+ http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+    
+   	<import resource="classpath:context/dispatcher-servlet.xml" />
+    <!--  Authentication Layer -->
+     
+    <!-- Authenticatin Filter -->
+     <alias name="filterChainProxy" alias="springSecurityFilterChain"/>
+ 	
+	 <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+	 
+		 <security:filter-chain-map request-matcher="ant">
+		
+		 
+		 <security:filter-chain pattern="/home/**" filters="none" />
+		 <security:filter-chain pattern="/resources/**" filters="none" />
+		<!--  concurrentSessionFilter, securityContextPersistenceFilter,-->
+		<!--  <security:filter-chain pattern="/**" filters="logoutFilter,authenticationFilter,sessionManagementFilter,exceptionTranslationFilter,filterSecurityInterceptor" /> -->
+		
+		 </security:filter-chain-map>
+	 </bean>
+	 	<security:http auto-config="true">
+ 		<security:form-login/>
+ 		
+ 	</security:http>
+	 
+	 <!-- <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+	 <property name="providers">
+	 <list>
+	 	<ref bean="userAuthenticationProvider" />
+	 </list>
+	 </property>
+	 </bean>
+	 
+    <bean id="userAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+ 	</bean>
+ 	
+ 	 <bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+	 <property name="securityContextRepository" ref="securityContextRepository" />
+	 </bean>
+	 
+	 <bean id="securityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />
+ 
+ 	 <bean id="concurrentSessionFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+	 <property name="expiredUrl" value="/home?errorCode=24" />
+	 <property name="sessionRegistry" ref="sessionRegistry" />
+	 </bean>
+	 
+	 <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+	  
+	  
+	 <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		 <constructor-arg value="/logout" />
+		 URL redirected to after logout
+		 <constructor-arg>
+			 <list>
+			 <bean
+			 class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">
+			 </bean>
+			 </list>
+		</constructor-arg>
+	 </bean>
+	 
+	 
+	 <bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		 <property name="authenticationManager" ref="authenticationManager" />
+		 <property name="filterProcessesUrl" value="/login" />
+		 <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+		 <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+		 <property name="sessionAuthenticationStrategy" ref="sas" />
+	 </bean>
+	 
+	 <bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+	 <property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+	  <property name="accessDeniedHandler" ref="accessDeniedHandler"/>
+	 </bean>
+	 
+	<bean id="accessDeniedHandler"
+	     class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+	  <property name="errorPage" value="/accessDenied.jsp"/>
+	</bean>
+	 
+	 <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	 <property name="loginFormUrl" value="/home" />
+	 </bean>
+	 
+	 <bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+ 	</bean>
+ 	
+	 <bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		 <constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		 <property name="maximumSessions" value="1" />
+	 </bean>
+	 
+	 
+	 
+	 <bean id="sessionManagementFilter" class="org.springframework.security.web.session.SessionManagementFilter">
+		 <constructor-arg name="securityContextRepository" ref="httpSessionSecurityContextRepository" />
+		 <property name="sessionAuthenticationStrategy" ref="sas" />
+	 </bean>
+	 
+	 <bean id="httpSessionSecurityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/> 
+	
+	 <bean id="filterSecurityInterceptor"
+	 		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		 <property name="authenticationManager">
+		 <ref bean="authenticationManager" />
+		 </property>
+		 <property name="accessDecisionManager">
+		 <bean class="org.springframework.security.access.vote.AffirmativeBased">
+			 <property name="decisionVoters">
+				 <list>
+				 <bean class="org.springframework.security.access.vote.RoleVoter">
+				 <property name="rolePrefix" value="ROLE_" />
+				 </bean>
+				 <bean
+				 class="org.springframework.security.access.vote.AuthenticatedVoter">
+				 </bean>
+				 </list>
+			 </property>
+		 </bean>
+	 	</property>
+		 <property name="securityMetadataSource">
+			 <security:filter-security-metadata-source>
+			 <security:intercept-url pattern="/profile/**" access="ROLE_CANDIADTE"></security:intercept-url>
+			 <security:intercept-url pattern="/recruiter/**" access="ROLE_RECRUITER"></security:intercept-url>
+			 <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"></security:intercept-url>
+			 </security:filter-security-metadata-source>
+		 </property>
+	 </bean>
+	  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <!--Khối không gian tên ‹http› luôn tạo một SecurityContextPersistenceFilter
+    	một ExceptionTranslationFilter và một FilterSecurityInterceptor .
+    	And as we have set auto-config to true, BasicAuthenticationFilter, 
+    	LogoutFilter and UsernamePasswordAuthenticationFilter also gets added to the filter chain.-->
+
+   <!-- <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
+    
+       	<intercept-url pattern="/quan-tri/trang-chu" access="hasAuthority('ADMIN')" />
+    
+       
+        <access-denied-handler error-page="/accessDenied" />
+        <form-login  login-page="https://localhost:8181/SpringMVCTest/dang-nhap"
+                     username-parameter="j_username"
+                     password-parameter="j_password"
+                     login-processing-url="/j_spring_security_check" 
+                     authentication-success-handler-ref="customSuccessHandler"
+                     authentication-failure-url="https://localhost:8181/SpringMVCTest/dang-nhap?incorrectAccount"/>
+        
+                     <session-management session-authentication-error-url="https://localhost:8181/SpringMVCTest/dang-nhap?sessionTimeout"  
+                                    session-fixation-protection="newSession" >   
+            <concurrency-control error-if-maximum-exceeded="false" expired-url="/login?message=max_session"
+                                 max-sessions="1" />
+       
+        </session-management>
+        <logout delete-cookies="JSESSIONID"/>
+    </http>
+    -->
+      
+    <!-- Authentication Manager-->  <!-- ProviderMananger implements Authentication Manager-->
+    
+    <!--<authentication-manager> -->
+        <!-- DaoAuthenticationProvider default of http form-login--> 
+      
+      <!--<authentication-provider user-service-ref="customUserDetailService">  -->
+      <!-- Custom Security Filter-->
+            <!--<user-service>
+                <user name="user1" password="12345" authorities="ROLE_USER" />
+                <user name="admin1" password="12345" authorities="ROLE_USER, ROLE_ADMIN" />
+            </user-service>
+         
+            <password-encoder ref="bcryptEncoder"> </password-encoder>
+            <password-encoder ref="bcryptEncoder"/>
+        </authentication-provider>
+    </authentication-manager> 
+    -->
+   <!-- <bean id="customUserDetailService" class="com.mycompany.springmvctest.service.impl.CustomUserDetailService">
+    </bean>  
+    
+    <bean id="customSuccessHandler" class="com.mycompany.springmvctest.security.CustomSuccessHandler">
+    </bean>
+    <bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+    -->
+
+</beans>

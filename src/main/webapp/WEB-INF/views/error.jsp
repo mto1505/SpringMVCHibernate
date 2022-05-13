@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
+
+<div class="main-content">
+    	<h> Status
+    		
+
+    	</h>
         <h1>${exception.getMessage()}</h1>
         <h1>${url}</h1>
-    </body>
-</html>
+</div>        

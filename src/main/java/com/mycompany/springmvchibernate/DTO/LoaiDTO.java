@@ -1,10 +1,17 @@
 package com.mycompany.springmvchibernate.DTO;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.mycompany.springmvchibernate.Service.Convert.SanPhamConvert;
+import com.mycompany.springmvchibernate.ValidationGroups.LoaiCheck;
+import com.mycompany.springmvchibernate.ValidationGroups.SanPhamCheck;
 
 public class LoaiDTO {
-
+	
+	@NotNull
 	private String id;
-
+	@NotNull(groups = LoaiCheck.class)
 	private String ten;
 
 	

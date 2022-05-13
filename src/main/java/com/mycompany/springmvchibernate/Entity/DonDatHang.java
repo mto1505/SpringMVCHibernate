@@ -5,55 +5,88 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-
 /**
  * The persistent class for the DON_DAT_HANG database table.
  * 
  */
 @Entity
-@Table(name="DON_DAT_HANG")
-@NamedQuery(name="DonDatHang.findAll", query="SELECT d FROM DonDatHang d")
+@Table(name = "DON_DAT_HANG")
+@NamedQuery(name = "DonDatHang.findAll", query = "SELECT d FROM DonDatHang d")
 public class DonDatHang implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name="ThoiGian")
+	@Column(name = "ThoiGian")
 	private Timestamp thoiGian;
 
-	@Column(name="TinhTrang")
+	@Column(name = "TinhTrang")
 	private int tinhTrang;
 
-	//bi-directional many-to-one association to ChiTietDonDatHang
-	@OneToMany(mappedBy="donDatHang")
+	@Column(name = "DiaChi", length = 200)
+	private String diaChi;
+
+	@Column(name = "ChuThich", length = 200)
+	private String chuThich;
+
+	// bi-directional many-to-one association to ChiTietDonDatHang
+	@OneToMany(mappedBy = "donDatHang",cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<ChiTietDonDatHang> chiTietDonDatHangs;
 	
-	/*@ManyToMany
-	@JoinTable(name="ChiTietDonDatHang",
-				joinColumns= {
-						@JoinColumn(name="ID_DDH")
-				},
-				inverseJoinColumns= {
-						@JoinColumn(name="ID_CTSP")}
-				)
-	private List<ChiTietSanPham> chiTietSanPhams;
-		*/
-	//bi-directional many-to-one association to DonViVanChuyen
-	
+
+	/*
+	 * @ManyToMany
+	 * 
+	 * @JoinTable(name="ChiTietDonDatHang", joinColumns= {
+	 * 
+	 * @JoinColumn(name="ID_DDH") }, inverseJoinColumns= {
+	 * 
+	 * @JoinColumn(name="ID_CTSP")} ) private List<ChiTietSanPham> chiTietSanPhams;
+	 */
+	// bi-directional many-to-one association to DonViVanChuyen
+
 //	@ManyToOne
 //	@JoinColumn(name="ID_DVVC")
 //	private DonViVanChuyen donViVanChuyen;
 
-	//bi-directional many-to-one association to KhachHang
+	// bi-directional many-to-one association to KhachHang
 	@ManyToOne
-	@JoinColumn(name="ID_KH")
+	@JoinColumn(name = "ID_KH")
 	private KhachHang khachHang;
-
 	public DonDatHang() {
 	}
+	
+	
+	public KhachHang getKhachHang() {
+		return khachHang;
+	}
+
+
+	public void setKhachHang(KhachHang khachHang) {
+		this.khachHang = khachHang;
+	}
+
+
+	public String getChuThich() {
+		return chuThich;
+	}
+
+	public void setChuThich(String chuThich) {
+		this.chuThich = chuThich;
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+	
 
 	public int getId() {
 		return this.id;
@@ -109,12 +142,5 @@ public class DonDatHang implements Serializable {
 //		this.donViVanChuyen = donViVanChuyen;
 //	}
 
-	public KhachHang getKhachHang() {
-		return this.khachHang;
-	}
-
-	public void setKhachHang(KhachHang khachHang) {
-		this.khachHang = khachHang;
-	}
 
 }

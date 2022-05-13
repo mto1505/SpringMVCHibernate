@@ -22,7 +22,7 @@ public class JsonDateConvert {
 	                date = dateFormat.parse(s);
 	                return date;
 	            } catch (ParseException ex) {
-	                Logger.getLogger(KhachHangConvert.class.getName()).log(Level.SEVERE, null, ex);
+	                Logger.getLogger(KhachHangConvertTest.class.getName()).log(Level.SEVERE, null, ex);
 	                return null;
 	            }
 	        }

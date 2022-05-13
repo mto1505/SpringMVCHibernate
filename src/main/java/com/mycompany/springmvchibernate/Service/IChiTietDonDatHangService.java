@@ -17,4 +17,5 @@ public interface IChiTietDonDatHangService {
     int getTotalItem();
     List<ChiTietDonDatHang> findByIdIdDDH(int id);
     public ChiTietDonDatHang findOneById(Integer id);
+    
 }

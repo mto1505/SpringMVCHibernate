@@ -6,9 +6,8 @@
 package com.mycompany.springmvchibernate.Service;
 
 
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
 import com.mycompany.springmvchibernate.Entity.BoNho;
 
 import java.util.List;

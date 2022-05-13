@@ -44,7 +44,7 @@ public class KhachHang implements Serializable {
 	private List<DonDatHang> donDatHangs;
 
 	//bi-directional many-to-one association to GioHang
-	@OneToOne(cascade = CascadeType.ALL,optional=false)
+	@OneToOne(cascade = CascadeType.ALL) //optional=true
 	@JoinColumn(name="ID_GH",unique=true)
 	private GioHang gioHang;
 

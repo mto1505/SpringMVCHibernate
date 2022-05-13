@@ -7,13 +7,13 @@ package com.mycompany.springmvchibernate.Service;
 
 import java.util.List;
 
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 
 /**
  *
  * @author MinhTo
  */
 public interface ILoaiXeService {
-    List<LoaiXeDTO> findAll();
-    LoaiXeDTO findOneByTenLoai();
+    List<LoaiXeDTO2> findAll();
+    LoaiXeDTO2 findOneByTenLoai();
 }

@@ -5,10 +5,8 @@
  */
 package com.mycompany.springmvchibernate.Service;
 
-import com.mycompany.springmvchibernate.KhachHang;
-import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO;
+import com.mycompany.springmvchibernate.DTODemo.LoaiXeDTO2;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
 import com.mycompany.springmvchibernate.Entity.Chip;
 
 import java.util.List;

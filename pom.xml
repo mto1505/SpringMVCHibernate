@@ -20,8 +20,8 @@
 		<!-- 4.3.13.RELEASE -->
 		<!-- <springframework.version>5.0.3.RELEASE</springframework.version> <springSecurity.version>5.0.1.RELEASE</springSecurity.version> -->
 
-		<springframework.version>4.3.13.RELEASE</springframework.version>
-		<springSecurity.version>4.0.2.RELEASE</springSecurity.version>
+		<springframework.version>5.2.11.RELEASE</springframework.version>
+		<springSecurity.version>5.2.11.RELEASE</springSecurity.version>
 
 		<jsp.api.version>2.3.1</jsp.api.version>
 		<jstl.version>1.2</jstl.version>
@@ -195,7 +195,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${springSecurity.version}</version>
+			<version>5.3.4.RELEASE</version>
 
 		</dependency>
 		<dependency>
@@ -209,6 +209,33 @@
 			<artifactId>spring-security-oauth2-authorization-server</artifactId>
 			<version>0.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-client</artifactId>
+			<version>5.3.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+			<version>5.3.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.5.0.RELEASE</version>
+		</dependency>
+		<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-core</artifactId>
+    <version>5.3.4.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>com.nimbusds</groupId>
+    <artifactId>nimbus-jose-jwt</artifactId>
+    <version>9.12.1</version>
+</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -219,6 +246,7 @@
 
 
 		</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -271,6 +299,23 @@
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>1.0.0.Final</version>
 		</dependency>
+		<!-- Bean validator -->
+		<!-- (1) -->
+		<!-- <dependency> <groupId>org.apache.tomcat.embed</groupId> <artifactId>tomcat-embed-el</artifactId> 
+			<scope>test</scope> (2) </dependenc -->
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.4.2.Final</version>
+		</dependency>
+
 		<!-- Logging -->
 
 		<dependency>
@@ -332,7 +377,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.6</version>
 		</dependency>
-		
+
 		<dependency>
 
 			<groupId>com.google.code.gson</groupId>
@@ -393,6 +438,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+   <groupId>javax.el</groupId>
+   <artifactId>javax.el-api</artifactId>
+   <version>2.2.4</version>
+</dependency>
+<dependency>
+   <groupId>org.glassfish.web</groupId>
+   <artifactId>javax.el</artifactId>
+   <version>2.2.4</version>
+</dependency>
 		<!-- <dependency> <groupId>org.junit.jupiter</groupId> <artifactId>junit-jupiter</artifactId> 
 			<version>5.6.0</version> </dependency> -->
 		<dependency>
@@ -461,15 +516,60 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/CKFinder-2.6.2.1.jar</systemPath>
 		</dependency>
+		<!-- Spring social -->
+		<!-- <dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>1.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-security</artifactId>
+			<version>1.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>1.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-google</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.security.oauth</groupId> 
+			<artifactId>spring-security-oauth2</artifactId> <version>2.2.1.RELEASE</version> 
+			</dependency> -->
 
+		<!-- Mail -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 
+		<!-- HTTP Component -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
+		</dependency>
 	</dependencies>
 
 
 	<build>
 		<!-- Loading all ${} -->
 		<filters>
-			<filter>src/main/resources/env/application-${env}.properties</filter>
+			<filter>src/main/resources/env/application-${env}.properties</filter> <!-- file chạy ghi đè giá trị của application.properties -->
+			<filter>src/main/resources/application.properties</filter><!-- file chạy 
+				mặc định -->
+
 		</filters>
 		<!-- FIX src/META-INF/persistence.xml was not included into my project's -->
 		<resources>
@@ -488,6 +588,8 @@
 					<include>**/*.xml</include>
 				</includes>
 			</resource>
+			<!-- <resource> <directory>src/main/resources</directory> <targetPath>${project.build.outputDirectory}</targetPath> 
+				<includes> <include>application.properties</include> </includes> </resource> -->
 
 		</resources>
 
@@ -599,8 +701,9 @@
 			<id>dev</id>
 			<activation>
 				<!-- this profile is active by default -->
-				<activeByDefault>true</activeByDefault>
+				<!-- <activeByDefault>true</activeByDefault> -->
 				<!-- activate if system properties 'env=dev' -->
+				<activeByDefault>true</activeByDefault>
 				<property>
 					<name>env</name>
 					<value>dev</value>
@@ -630,18 +733,14 @@
 			<activation>
 
 				<!-- activate if system properties 'env=test' -->
+				<activeByDefault>true</activeByDefault>
 				<property>
 					<name>env</name>
 					<value>test</value>
 				</property>
 			</activation>
-			<build>
-				<filters>
-					<filter>
-			       	src/test/resources/env/application-test.properties
-			       	</filter>
-				</filters>
-			</build>
+			<!-- <build> <filters> <filter> src/test/resources/env/application-test.properties 
+				</filter> </filters> </build> -->
 			<properties>
 				<env>test</env>
 			</properties>

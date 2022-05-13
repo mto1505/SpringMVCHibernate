@@ -1,45 +1,80 @@
-<%-- 
-    Document   : newjsp
-    Created on : Feb 27, 2021, 10:25:19 PM
-    Author     : MinhTo
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp" %>
+<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Trang Chủ</title>
+<!-- Bootstrap core CSS -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Trang Chủ</title>
+<!-- Google font -->
+<script src="<c:url value='/template/web/js/jquery.min.js'></c:url>"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
+	rel="stylesheet">
+	
 
-    <!-- Bootstrap core CSS -->
-    <link href="<c:url value='/template/web/vendor/bootstrap/css/bootstrap.min.css' > </c:url>" rel="stylesheet">
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/template/web/css/bootstrap.min.css' />">
 
-        <!-- Custom styles for this template -->
-        <link href="<c:url value='/template/web/css/small-business.css' > </c:url>" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- font awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <body>
-            <!-- Navigation -->
-        <%@include file="/common/web/header.jsp" %>
+<!-- Slick -->
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/template/web/css/slick.css'/>">
 
-        <!-- Page Content -->
-        <dec:body>
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/template/web/css/slick-theme.css'/>">
 
-        </dec:body>
-        <!-- /.container -->
 
-        <!-- Footer -->
-        <%@include file="/common/web/footer.jsp" %>
+<!-- nouislider -->
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/template/web/css/nouislider.min.css'/>">
 
-        <!-- Bootstrap core JavaScript -->
+<!-- Font Awesome Icon -->
 
-        <script src="<c:url value='template/web/vendor/jquery/jquery.min.js'></c:url>" ></script>
+<link rel="stylesheet"
+	href="<c:url value='/template/web/css/font-awesome.min.css'/>">
 
-            <script src="<c:url value='template/web/vendor/bootstrap/js/bootstrap.bundle.min.js'></c:url>" ></script>
-    </body>
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/template/web/css/style.css'/>">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+<body>
+	<!-- Header -->
+	<%@include file="/common/web/header.jsp"%>
+
+	<!-- Navigation -->
+	<%@include file="/common/web/menu.jsp"%>
+
+	<!-- Page Content -->
+	<dec:body>
+
+	</dec:body>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<%@include file="/common/web/footer.jsp"%>
+
+
+	<!-- Bootstrap core JavaScript -->
+
+	<!-- jQuery Plugins -->
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="<c:url value='/template/web/js/bootstrap.min.js'/>"></script>
+	<script src="<c:url value='/template/web/js/slick.min.js'/>"></script>
+	<script src="<c:url value='/template/web/js/nouislider.min.js'/>"></script>
+	<script src="<c:url value='/template/web/js/jquery.zoom.min.js'/>"></script>
+	<script src="<c:url value='/template/web/js/main.js'/>"></script>
+</body>
 </html>

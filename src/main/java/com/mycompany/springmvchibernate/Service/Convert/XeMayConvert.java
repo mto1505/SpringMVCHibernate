@@ -5,9 +5,8 @@
  */
 package com.mycompany.springmvchibernate.Service.Convert;
 
-import com.mycompany.springmvchibernate.XeMay;
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class XeMayConvert {
 
     @Autowired
     ModelMapper modelMapper;
-
+/*
     public XeMayDTO toDTO(XeMay xeMay) {
         XeMayDTO xeMayDTO = modelMapper.map(xeMay, XeMayDTO.class);
         return xeMayDTO;
@@ -59,5 +58,5 @@ public class XeMayConvert {
         XeMay xeMay = modelMapper.map(xeMayDTO2, XeMay.class);
         return xeMay;
     }
-
+*/
 }

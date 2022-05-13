@@ -5,9 +5,9 @@
  */
 package com.mycompany.springmvchibernate.Repositories;
 
-import com.mycompany.springmvchibernate.XeMay;
+
 import com.mycompany.springmvchibernate.DTODemo.XeMayDTO;
-import com.mycompany.springmvchibernate.DTODemo.XeMayDTO2;
+
 import com.mycompany.springmvchibernate.DTODemo.XeMayView;
 
 import java.util.List;

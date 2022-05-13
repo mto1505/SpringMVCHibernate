@@ -34,8 +34,7 @@ import com.mycompany.springmvchibernate.Service.ISanPhamService;
 public class SanPhamConvert {
 	  	
 		@Autowired
-	    ModelMapper modelMapper;
-	  
+	    public ModelMapper modelMapper;
 	    
 	    public SanPhamDTO toDTO(SanPham SanPham) {
 	    	/*modelMapper.getConfiguration()
@@ -50,8 +49,7 @@ public class SanPhamConvert {
 	    }
 
 	    public SanPham toEntity(SanPhamDTO SanPhamDTO) {
-	    	modelMapper.getConfiguration()
-	    	  .setMatchingStrategy(MatchingStrategies.STRICT);	       // modelMapper.addConverter(toStringDate);
+	      // modelMapper.addConverter(toStringDate);
 	       //  modelMapper.getTypeMap(String.class, Date.class).setProvider(javaDateProvider);
 	        SanPham SanPham = modelMapper.map(SanPhamDTO, SanPham.class);
 	        return SanPham;
@@ -72,6 +70,8 @@ public class SanPhamConvert {
 	           .setPropertyCondition(context -> 
 	                 (!(context.getSource() instanceof PersistentCollection)||((PersistentCollection)context.getSource()).wasInitialized())
 	            ); 
+	    	modelMapper.getConfiguration()
+	    	  .setMatchingStrategy(MatchingStrategies.STANDARD);
 	    	/*modelMapper.getConfiguration()
 	    	  .setMatchingStrategy(MatchingStrategies.STANDARD);*/
 	    	/*modelMapper.addMappings(new PropertyMap<SanPhamDTO, SanPham>() {
@@ -80,6 +80,7 @@ public class SanPhamConvert {
 					// TODO Auto-generated method stub
 					skip().setDanhGias(null);
 					skip().setHinhAnhSps(null);
+					
 				}
 			});*/
 	  //  	modelMapper.addConverter(populateExistList);

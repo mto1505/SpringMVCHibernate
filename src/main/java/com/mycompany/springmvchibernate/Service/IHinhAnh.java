@@ -9,13 +9,13 @@ import com.mycompany.springmvchibernate.Entity.HinhAnhSP;
 
 public interface IHinhAnh {
 	
-		public void save(HinhAnhDTO xe);	
+		public void save(HinhAnhSP xe);	
 	    public void delete(String [] ids);    
 	    public void delete(String id);
-	    public HinhAnhSP update(HinhAnhDTO xe);
+	    public HinhAnhSP update(HinhAnhSP xe);
 	    public List<HinhAnhSP>findAll();
 	    int getTotalItem();
-	    HinhAnhDTO findById(String id);
-	    public List<HinhAnhSP>findAllByIdSanPham(String id);
+	    HinhAnhSP findById(int id);
+	    public List<HinhAnhSP>findAllByIdSanPham(int id);
 	  
 }

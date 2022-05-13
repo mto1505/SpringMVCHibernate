@@ -17,11 +17,11 @@ public class GioHang implements Serializable {
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	//bi-directional many-to-one association to ChiTietGioHang
-	@OneToMany(mappedBy="gioHang")
+	@OneToMany(mappedBy="gioHang",fetch=FetchType.LAZY,orphanRemoval=true,cascade =CascadeType.PERSIST)
 	private List<ChiTietGioHang> chiTietGioHangs;
 
 	//bi-directional many-to-one association to KhachHang

@@ -27,6 +27,7 @@ public class ChiTietDonDatHang implements Serializable {
 
 	//bi-directional many-to-one association to DonDatHang
 	@ManyToOne
+	@MapsId("idDdh") //chỉ ra rằng các giá trị ID nên được lấy từ cột tham gia liên kết với mối quan hệ
 	@JoinColumn(name="ID_DDH",insertable=false ,updatable=false)
 	private DonDatHang donDatHang;
 

@@ -10,10 +10,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.springmvchibernate.DTO.DonDatHangDTO;
+import com.mycompany.springmvchibernate.Entity.ChiTietDonDatHang;
+import com.mycompany.springmvchibernate.Entity.ChiTietDonDatHangPK;
 import com.mycompany.springmvchibernate.Entity.DonDatHang;
+import com.mycompany.springmvchibernate.Entity.KhachHang;
 import com.mycompany.springmvchibernate.Repositories.DonDatHangRepository;
 import com.mycompany.springmvchibernate.Service.IDonDatHangService;
 import com.mycompany.springmvchibernate.Service.Convert.DonDatHangConvert;
+import com.mycompany.springmvchibernate.Service.Convert.KhachHangConverter;
 
 @Service
 public class DonDatHangService implements IDonDatHangService {
@@ -22,10 +26,22 @@ public class DonDatHangService implements IDonDatHangService {
 	DonDatHangRepository donDatHang;
 	@Autowired
 	DonDatHangConvert ddhConvert;
-	
+	@Autowired
+	KhachHangConverter khachHangConv;
 	@Override
 	public void save(DonDatHangDTO xe) {
-		// TODO Auto-generated method stub
+		DonDatHang ddh=ddhConvert.toEntity(xe);
+		/*List<ChiTietDonDatHang> listDDH=ddh.getChiTietDonDatHangs();
+		for(ChiTietDonDatHang donHang:listDDH)
+		{	
+			ChiTietDonDatHangPK chiTietDonDatHangPK=new ChiTietDonDatHangPK();
+			chiTietDonDatHangPK.setIdCtsp(donHang.getId().getIdCtsp());
+			donHang.setId(chiTietDonDatHangPK);
+			ddh.addChiTietDonDatHang(donHang);
+		}*/
+		/*KhachHang khachHang=khachHangConv.toEntity(xe.getKhachHang());
+		ddh.setKhachHang(khachHang);*/
+		donDatHang.save(ddh);
 		
 	}
 
@@ -75,7 +91,9 @@ public class DonDatHangService implements IDonDatHangService {
 	@Override
 	public DonDatHangDTO findOneById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		DonDatHang ddh=donDatHang.findOne(id);
+		
+		return ddhConvert.toDTO(ddh);
 	}
 
 	@Override
